@@ -286,3 +286,28 @@ CUIクライアントはキーボードから文字の命令を入力してGit�
 
 <details><summary>Lesson 10 [エディターのインストール] Visual Studio Codeをインストールしましょう</summary>
 
+初期設定では、Gitは「Vim」(ビム)というエディターを利用してメッセージなどを編集します。しかし、「Vim」は利用までに覚えることが多いため、本書では「Visual Studio Code」エディターをオススメします。
+
+- 「Visual Studio Code」エディターとは
+    
+Gitではコミット時のメッセージ入力などにテキストエディターを使用します。Windowsでは「メモ帳」、macOSでは「テキストエディット」というテキストエディターがデフォルトでインストールされていますが、より高機能なテキストエディターを利用することをオススメします。「Visual Studio Code」はMicrosoft社が主体となって、オープンソースで開発している無料のテキストエディターです。複数ファイルに対する検索や、シンタックスハイライトというテキストを色分けして表示する機能など、便利な機能がたくさん付いています。
+    
+- Visual Studio Codeをインストールする(macOS)
+    1. ファイルとダウンロードする
+        1. Visual Studio Codeのページ( [https://code.visualstudio.com/](https://code.visualstudio.com/) )を表示
+        2. [Download Mac Universal]をクリック
+    2. アプリケーションフォルダーへファイルを移動する
+        1. ダウンロードしたファイルを「アプリケーション」フォルダーへ移動
+    3. Visual Studio Codeを起動する
+        1. 「アプリケーション」フォルダーに移動した[Visual Studio Code]をダブルクリック
+    4. コマンドラインから呼び出せるようにする
+        1. shift + command + Pキーを押す
+        2. 「shell」と入力
+        3. [シェルコマンド：PATH内に'code’コマンドをインストールします]をクリック
+        4. OKをクリック
+### 用語
+Visual Studio Code：Microsoft社が主体となって、オープンソースで開発している無料のテキストエディター。複数ファイルに対する検索や、シンタックスハイライトというテキストを色分けして表示する機能など、便利な機能がたくさん付いている。</details>
+
+
+<details><summary>Lesson 11 [拡張子の表示] ファイルの拡張子を表示しましょう</summary>
+
