@@ -49,3 +49,120 @@
 
 <details><summary>Lesson 15 [ローカルリポジトリの作成] ローカルリポジトリを作りましょう</summary>
 
+このLessonでは、ローカルリポジトリを実際に作っていきましょう。先ずディレクトリを作ってMarkdown形式のファイルを配置します。そして、そのディレクトリにローカルリポジトリを作成します。作成後はその状態を確認しましょう。
+
+- ローカルリポジトリを作成するには
+    
+    本書ではMarkdownファイル(P.79参照)に学習した内容をメモして、そのファイルをバージョン管理しながらGitを学んでいきます。先ずはホームディレクトリに「ichiyasa」ディレクトリを作成し、そこに「Git_MEMO.md」というMarkdownファイルを保存します。「idhiyasa」ディレクトリにローカルリポジトリを作成したら、いったんその状態を確認してみましょう。
+    
+- Gitで管理するファイルを用意する
+    1. 「ichiyasa」ディレクトリを作成する
+        1. Git Bash(macOSではターミナル)を起動して、ホームディレクトリに「ichiyasa」ディレクトリを作ります。Chapter 2で解説したディレクトリ移動のcdコマンドと、ディレクトリ作成のmkdirコマンドを使いましょう。
+        
+        ```bash
+        % cd ~ # ホームディレクトリに移動
+        % mkdir ichiyasa # 「ichiyasa」ディレクトリを作成
+        ```
+        
+    2. 「Git_MEMO.md」ファイルを作成する
+        1. Visual Studio Codeを起動し、テキストファイルを作成し、「ichiyasa」ディレクトリに保存しましょう。その際、Markdownファイルは文字コードを「UTF-8」にしてください。「UTF-8」以外だとMarkdown用のビューワーなどで表示したときに文字化けする場合があります。Visual Studio Codeを使用していればデフォルトの文字コードは「UTF-8」になりますが、別のエディターを使用している場合は、文字コードに「UTF-8」を設定するように注意してください。
+            1. Visual Studio Codeを開く
+            2. ファイルタグから、新しいテキストファイルを選択
+            3. 本書の内容を入力して、command + S を押す
+            4. Finderが開くので、「ichiyasa」フォルダーを選択、ファイル名を「Git_MEMO.md」とする
+            5. 保存をクリック
+- 「ichiyasa」ディレクトリにローカルリポジトリを作ろう
+    
+    ローカルリポジトリには.gitというディレクトリが自動生成されています。ls -aコマンドで、ディレクトリの存在を確認してみましょう。
+    
+    1. ローカルリポジトリを作成する
+        1. 先程作成した「ichiyasa」ディレクトリに移動して、ローカルリポジトリを作成します。git initコマンドを実行してみましょう。標準設定ではこのコマンドによってmasterという名のブランチが作られます(ブランチについてはChapter 5参照)。
+        
+        ```bash
+        % cd ichiyasa # 「ichiyasa」ディレクトリに移動
+        ichiyasa % git init # 「ichiyasa」ディレクトリにローカルリポジトリを作成
+        Initialized empty Git repository in /Users/yoshiwo/ichiyasa/.git/ # Usersディレクトリの中のyoshiwoディレクトリの中のichiyasaディレクトリの中に.gitという初期化された空のGitリポジトリ(ローカルリポジトリ)
+        ```
+        
+    2. ディレクトリ内を確認する
+        1. lsコマンドでディレクトリの中にあるものを表示してみましょう。-aオプションで非表示ディレクトリも表示します。
+        
+        ```bash
+        % ls -a # カレントディレクトリ以外のディレクトリやファイルを表示
+        .		..		.git		Git_MEMO.md # (左から)起点カレントディレクトリ→Users→.gitディレクトリ→Git_MEMO.mdファイル
+        ```
+        
+        - **Point** ローカルリポジトリの内容
+            
+            git initコマンドを実行すると、先程作成した「Git_MEMO.md」ファイルと別に、「.git」というディレクトリが自動作成されます。「.git」ディレクトリにはGitの情報が保管されているので削除してはいけません。
+            
+- ローカルリポジトリの状態を確認しよう
+    
+    ディレクトリに置いたファイルはワークツリーに配置されていることになります。その状態を確認してみましょう。ローカルリポジトリの状態を確認するには、git statusコマンドを実行します。
+    
+    ```bash
+    % git status # ローカルリポジトリの状態を確認
+    On branch main
+    
+    No commits yet
+    
+    Untracked files: # 登録されていないファイルは「Untracked files」という扱いになる
+      (use "git add <file>..." to include in what will be committed)
+    	Git_MEMO.md
+    
+    nothing added to commit but untracked files present (use "git add" to track)
+    ```
+    
+    - **Point** git statusコマンドの実行結果の見方
+        
+        git statusコマンドの結果を見てみましょう。現時点では「Git_MEMO.md」ファイルを作成しただけなので、Gitの管理下にはファイルが登録されていません。**登録されていないファイルは「Untracked files」という扱いになる**ので、「Untracked files:Git_MEMO.md」と表示されています。
+        
+- git statusの結果の例
+    
+    ```bash
+    On branch master # ブランチについての情報
+    
+    No commits yet # 一度もコミットしていない場合に表示される
+    
+    Untracked files: # untracked(追跡されていない)なファイルを表す
+      (中略)
+           Git_MEMO.md
+    ```
+    
+    ```bash
+    On branch master # ブランチについての情報
+    
+    No commits yet # 一度もコミットしていない場合に表示される
+    
+    Changes to be commited: # staged(ステージングエリアに追加済み)のファイルを表す
+      (中略)
+           new file:    Git_MEMO.md
+    ```
+    
+    ```bash
+    On branch master # ブランチについての情報
+    Changes not staged for commit:
+      (中略)
+           modified:    Git_MEMO.md # modified(変更済み)のファイルを表す
+    ```
+    
+    ```bash
+    On branch master # ブランチについての情報
+    nothing to commit, working tree clean # すべてコミットされ、その後に変更したファイルがないunmodified(変更されていない)状態を表す
+    ```
+    
+- **ワンポイント** Markdownで構造を持つ文章を書こう
+    
+    Markdownは「見出し」や「段落」「箇条書き」などの構造を持つ文章を書くためのファイル形式です。オープンソースのソフトウェアの多くは、説明のためにREADME.mdなどのMarkdownファイルを添付しています。HTMLよりもシンプルな記述ルールになっており、手軽に構造を持つ文章を書けます。
+    
+    Markdownで記載した文章はそのままでもテキストエディターで読めますが、変換ツールを使用してMaikdownをHTMLやPDFにしたり、Markdown用のビューワーを使用したりすれば、より読みやすくなります。Visual Studio CodeにもMarkdownのビューワー機能がついており、command + K + V で表示できます。
+### 用語
+- **Markdown**：「見出し」や「段落」「箇条書き」などの構造を持つ文章を書くためのファイル形式のこと。
+- **lsコマンド**：ディレクトリの中を確認する。lsコマンドの後ろにパラメーターとしてディレクトリパスを付けるとカレントディレクトリ以外のディレクトリの中を確認できる。
+- **ls -a**：lsコマンドの後ろに-aオプションを付けるとファイルやディレクトリも表示される。
+- **ワークツリー**：変更するファイルを保持する場所。「ワーキングツリー」「作業ディレクトリ」とも呼ぶ。
+- **git statusコマンド**：ローカルリポジトリの状態を確認。</details>
+
+
+<details><summaryLesson 16 [ステージングエリアへの登録] ステージングエリアに登録しましょう</summary>
+
