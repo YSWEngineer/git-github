@@ -340,4 +340,171 @@ Visual Studio Code：Microsoft社が主体となって、オープンソース�
 
 <details><summary>Lesson 12 [初期設定] Gitの設定をしましょう</summary>
 
+最後にGitの設定をすれば、Gitを使う準備は全て完了です。ユーザー名やメールアドレスをGitに設定して、誰がこのGitを使っているのかがわかるようにしましょう。また、使用するエディターなども設定します。
 
+- Gitの設定をするgit configコマンド
+    
+    Gitの設定をするにはgit configというコマンドを利用します。- -globalオプションを付けることで、ホームディレクトリの.gitconfigというファイルに設定が保存されていきます。また、設定の確認もできます。
+    
+    - Gitの設定をするコマンド
+        
+        ```bash
+        $ git config --global user.name ichiyasa-g-2 # git config=git configコマンド --global=--globalオプション
+        # user.name=設定項目名 ichiyasa-g-2=設定値
+        ```
+        
+    - 設定値の一覧を確認する
+        
+        ```bash
+        $ git config --list # --list=--listオプション
+        ```
+        
+    - 特定の設定値を確認する
+        
+        ```bash
+        $ git config user.name # user.name=設定を確認したい項目名
+        ```
+        
+        ※この設定は、必ず実施しましょう！
+        
+- ユーザー名とメールアドレスを登録する
+    
+    最初にユーザー名とメールアドレスを登録しましょう。登録したユーザー名とメールアドレスはコミットに記録され、誰がコミットしたかを明らかにすることができます。将来的にリポジトリを複数人で共有する際、ここで設定したユーザー名とメールアドレスがリモートリポジトリのアカウントと紐付けられることが多いです。そのため、適当な値を設定するのではなく、公開しても問題ない自身のメールアドレスと設定しましょう。
+    
+    1. ユーザー名を設定する
+        1. ユーザー名を登録するには、git configコマンドの設定項目名をuser.nameとします。ここでは「ichiyasa-g-2」をユーザー名に設定していますが、実際に使用するものへ置き換えて入力してください。
+            
+            **※Gitでのユーザー名**
+            
+        
+        ```bash
+        % git config --global user.name yoshiwo.may15
+        # 忘れた場合はここで確認すること
+        ```
+        
+    2. メールアドレスを設定する
+        1. 続いてuser.emailを指定してメールアドレスを設定します。ここでは「ichiyasa-g-2@example.com」としていますが、実際に使用するものへ置き換えて入力してください。
+            
+            **※Gitでのメールアドレス**
+            
+        
+        ```bash
+        % git config --global user.email yoshiwo.may15@gmail.com
+        # 忘れた場合はここで確認すること
+        ```
+        
+    3. 設定内容を確認する
+        1. 設定を確認するには、git configコマンドに- -listオプションを付けて実行します。設定項目が一覧で表示されるので、先程登録したuser.nameとuser.emailの値を確認してみましょう。
+        
+        ```bash
+        % git config --list # 設定項目が一覧で表示される
+        core.excludesfile=~/.gitignore
+        core.legacyheaders=false
+        core.quotepath=false
+        mergetool.keepbackup=true
+        push.default=simple
+        color.ui=auto
+        color.interactive=auto
+        repack.usedeltabaseoffset=true
+        alias.s=status
+        alias.a=!git add . && git status
+        alias.au=!git add -u . && git status
+        alias.aa=!git add . && git add -u . && git status
+        alias.c=commit
+        alias.cm=commit -m
+        alias.ca=commit --amend
+        alias.ac=!git add . && git commit
+        alias.acm=!git add . && git commit -m
+        alias.l=log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+        alias.ll=log --stat --abbrev-commit
+        alias.lg=log --color --graph --pretty=format:'%C(bold white)%h%Creset -%C(bold green)%d%Creset %s %C(bold green)(%cr)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+        alias.llg=log --color --graph --pretty=format:'%C(bold white)%H %d%Creset%n%s%n%+b%C(bold blue)%an <%ae>%Creset %C(bold green)%cr (%ci)' --abbrev-commit
+        alias.d=diff
+        alias.master=checkout master
+        alias.spull=svn rebase
+        alias.spush=svn dcommit
+        alias.alias=!git config --list | grep 'alias\.' | sed 's/alias\.\([^=]*\)=\(.*\)/\1\     => \2/' | sort
+        include.path=~/.gitcinclude
+        include.path=.githubconfig
+        include.path=.gitcredential
+        diff.exif.textconv=exif
+        credential.helper=osxkeychain
+        user.name=username #ユーザー名
+        user.email=emailaddress # メールアドレス
+        init.defaultbranch=main
+        ```
+        
+        **※もし設定した値が間違っている場合は、手順1または手順2をもう一度実行しましょう。**
+        
+- **Point** git configの結果が途中までしか表示されないとき
+    
+    git configコマンドで設定の一覧を確認していてウィンドウに結果が表示しきれないときは、ウィンドウの一番下に「:」(コロン)が表示された状態になります。このとき、キーボードの上下キーを押すことでウィンドウの表示をスクロールできます。表示をやめるときはQキーを押すとコマンドラインに戻ります。
+    
+- 利用するエディターを設定する
+    
+    Gitの操作でメッセージを入力することがあります。ここではメッセージの入力時に先程インストールしたVisual Studio Codeがエディターとして開くように設定しましょう。他のエディターを利用したい場合は、手順1の"code”の部分に利用したいエディターのexeファイルのパスを設定してください。
+    
+    1. Visual Studio Codeを設定する
+        
+        ```bash
+        % git config --global core.editor "code --wait"
+        # インストール時に、Visual Studio Codeをcodeという名前でパソコンのPATHに登録しています
+        ```
+        
+    2. 設定を確認する
+        1. git configコマンドの後ろに設定項目名を入力すると設定した値を確認できます。core.editorの値を確認してみましょう。
+        
+        ```bash
+        % git config core.editor # git configコマンドの後ろに設定項目名を入力
+        code --wait # core.editorにcodeが設定されていることを確認
+        ```
+        
+- **Point** 設定を削除したい場合は
+    
+    Gitに登録した設定項目を削除する場合は--unsetオプションに設定項目名を指定して実行します。
+    
+    ```bash
+    $ git config --global --unset 設定項目名
+    ```
+    
+- **ワンポイント** リモートリポジトリと接続できない場合のプロキシ設定
+    
+    会社などの内部ネットワークからインターネットに接続する場合、プロキシサーバーというサーバーを経由することがあります。皆さんが会社でGitを利用しており、リモートリポジトリと接続できないという問題が発生した場合、プロキシサーバーが原因かもしれません。
+    
+    その場合は、Gitにプロキシサーバーの設定をする必要があります。
+    
+    - プロキシ環境でGitを利用する場合の設定
+        
+        ```bash
+        $ git config --global http.proxy http://example.com:8080
+        # http://example.com:8080=プロキシサーバーURL:ポート番号
+        ```
+        
+    - プロキシに認証が必要な場合
+        
+        ```bash
+        $ git config --global http.proxy http://username:password@example.com:8080
+        # http://username:password@example.com:8080=プロキシのユーザー名:パスワード@プロキシサーバーURL:ポート番号
+        ```
+        
+- **ワンポイント** 標準ブランチ名の設定
+    
+    Gitのバージョン2.28からgit configコマンドのオプションにdefaultBranchが追加されました。このオプションを使うとリポジトリを作った時にできる「ブランチ」の名前を設定できます。(「ブランチ」はChapther 5を参照)
+    
+    Windowsの場合はGitをインストールした時にmasterが設定されています。Windows以外を使っている場合はdefaultBranchをmasterに設定しましょう。この設定はいつでも変更できます。
+    
+    ```bash
+    $ git config --global init.defaultBranch master # master=デフォルトブランチの名前
+    ```
+    
+### 用語
+- **git configコマンド**：Gitの設定を行う。
+- **--globalオプション**：ホームディレクトリの.gitconfigというファイルに設定が保存される。
+- **git config --list**：設定項目が一覧で表示される。
+- **exeファイル**：米マイクロソフト（Microsoft）社のWindowsで用いられる実行可能プログラムのファイル形式の一つ。ファイル名の標準の拡張子が「.exe(エグゼ)」であることからこのように呼ばれる。
+- **--unsetオプション**：変数や関数を削除する。
+- **プロキシサーバー**：プロキシ（Proxy）は英語で「代理」の意味。インターネットに直接接続できないコンピューターに代わり、インターネットに接続し、Webサイトへのアクセスなどを行うサーバーのことを指す。ホームページを見るときに使うソフト（Webブラウザ）の身代わりになってホームページにアクセスしてくれるコンピュータのこと。
+- **ブランチ**：Gitで記録する履歴を枝分かれさせるための機能。複数の作業を並行して進める時に使用する。詳細はChapter 5にて。</details>
+
+
+<details><summary>Lesson 13 [GUIクライアントの紹介] GUIクライアントを知りましょう</summary>
