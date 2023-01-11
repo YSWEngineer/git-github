@@ -508,3 +508,24 @@ Visual Studio Code：Microsoft社が主体となって、オープンソース�
 
 
 <details><summary>Lesson 13 [GUIクライアントの紹介] GUIクライアントを知りましょう</summary>
+
+これまでコマンドを使ってファイルとフォルダーの操作やGitの設定をしてきました。本書では今後もコマンドを使って操作していきますが、コマンドでの操作に慣れない方のためにGUIクライアントについても紹介します。
+
+- コマンドに慣れない場合はGUIクライアントを使おう
+    
+    本書ではCUIクライアントとコマンドを使って解説をしてきますが、「どうしてもCUIの操作になじめない……」と感じる人もいるかと思います。そういう場合は、無理をせずGUIクライアントを試してみてください。ファイルやフォルダーの操作には、WindowsのエクスプローラーやmacOSのFinderを利用してかまいません。大切なのは使うツールではなく、Gitで何ができるのかを理解し、実際にバージョン管理ができる状態になることです。GitのGUIクライアントはたくさんあり、GitのGUIクライアントの紹介ページでも多くのツールが紹介されています。きっと使いやすいツールが見つかるはずです。
+    
+- Git操作専用ツール
+    
+    GitのGUIクライアントの紹介ページに掲載されているツールは、ほぼこのカテゴリに当てはまります。有名なものに、Atlassian社が提供している「Sourcetree」( [https://www.sourcetreeapp.com/](https://www.sourcetreeapp.com/) )やGitHub社が提供している「GitHub Desktop」( [https://desktop.github.com/](https://desktop.github.com/) )などがあります。
+    
+- エディターや統合開発環境(IDE)のプラグイン
+    
+    先程インストールしたMicrosoft社の「Visual Studio Code」や、Sublime社の「Sublime Text」( [https://www.sublimetext.com/](https://www.sublimetext.com/) )、JetBrains社が提供している「IntelliJ IDEA」などの各種IDE( [https://www.jetbrains.com/](https://www.jetbrains.com/) )といった高機能エディターやIDEには、Gitを操作するためのプラグインが用意されています。これらを利用すると「プログラミングをして、作っているプログラムをGitでバージョン管理する」までを1つのツールで行えるので便利です。
+    
+- Gitに組み込まれているGUIツール
+    
+    GitにもGUIツールが付属しており、gitkやgit guiなどのコマンドで起動します。gitkは過去のコミットを確認できるツールで、git guiはコミットを作成するためのツールです。どちらも、次のChapterでローカルリポジトリを作ってから実行してください。
+### 用語
+- **gitk**：過去のコミットを確認できるツール。
+- **git gui**：コミットを作成するためのツール。</details>
