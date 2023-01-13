@@ -253,7 +253,7 @@
         $ git diff # 各エリアの差分を確認する
         $ git diff --cached # ステージングエリアとGitディレクトリの差分を確認できる
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git diff
+        ichiyasa % git diff
         diff --git a/Git_MEMO.md b/Git_MEMO.md
         index 2a3fcae..66d3497 100644
         --- a/Git_MEMO.md
@@ -279,7 +279,7 @@
         ```bash
         $ git diff --cached # ステージングエリアとGitディレクトリの差分を確認できる
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git diff --cached
+        ichiyasa % git diff --cached
         diff --git a/Git_MEMO.md b/Git_MEMO.md
         new file mode 100644
         index 0000000..2a3fcae
@@ -303,4 +303,152 @@
 - **バイナリファイル**：文字のデータ以外の多くの情報を持つファイルのこと。例)画像ファイル、Microsoft Excelファイルのような専用のアプリケーションで開く形式のファイル。</details>
 
 
-<details><summary>
+<details><summary>Lesson 18 [コミットする] ファイルをコミットしましょう</summary>
+
+それではファイルをコミットしてみましょう。コミットには、「そのコミットがどういう内容なのか」を説明するコミットメッセージを書きます。このLessonでは、エディターを使ってコミットする方法と、より素早くコミットする方法の2つを紹介します。
+
+- ローカルリポジトリにコミットしよう
+    
+    ステージングエリアに登録している「Git_MEMO.md」ファイルをコミットしましょう。コミットするには、git commitコマンドを利用します。
+    
+    コミットする際に、そのコミットでの変更内容を説明するコミットメッセージを書く必要があります。コマンドを実行すると、登録しておいたテキストエディター(本書ではVisual Studio Code)が開きます。コミットメッセージを書くとコミットが完了します。
+    
+    ※コミットメッセージを「日本語で書くか、英語で書くか」「1行で書くか、複数行で書くか」などは、チームの方針に合わせましょう。
+    
+- 「Git_MEMO.md」ファイルをコミットする
+    
+    まずは複数行のコミットメッセージを書いてコミットしてみましょう。コミットメッセージを書いてファイルを保存し、Visual Studio Codeを閉じると、コミットが完了します。
+    
+    1. ローカルリポジトリの状態を確認する
+        
+        ```bash
+        $ git status # 現在の状況を確認する
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        On branch main
+        
+        No commits yet # まだコミットしていない
+        
+        Changes to be committed: # Git_MEMO.mdがステージングエリアに登録されている
+          (use "git rm --cached <file>..." to unstage)
+        	new file:   Git_MEMO.md
+        
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   Git_MEMO.md
+        ```
+        
+    2. コミットを実行する
+        
+        ```bash
+        $ git commit
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git commit
+        hint: Waiting for your editor to close the file...
+        ```
+        
+    3. Visual Studio Codeが開く
+        
+        ![スクリーンショット 2022-07-29 17.01.27.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4e15c9e-f3bb-4683-9f9c-251b76a0a44b/_2022-07-29_17.01.27.png)
+        
+        ※先頭が「#」の行はコメント行です。コミットメッセージには反映されません。
+        
+    4. コミットメッセージを書く
+        
+        ![スクリーンショット 2022-07-29 17.07.44.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/edb96ff0-6237-499e-8f3e-be06e11bf657/_2022-07-29_17.07.44.png)
+        
+        1. 1行目に要約(コミットタイトル)をかく
+        2. 2行目は空白行
+        3. 3行目以降に詳細を書く
+        4. 書き終わったらファイルを保存してVisual Studio Codeを閉じる
+    5. コミットが完了する
+        1. Visual Studio Codeを閉じると、コミットが完了し、結果がコマンドラインに表示されます。
+        
+        ```bash
+        # コミットメッセージのタイトルや、追加したファイルの情報が表示されます
+        [main (root-commit) 2da8208] Gitの学習メモを作成
+         1 file changed, 2 insertions(+)
+         create mode 100644 Git_MEMO.md
+        ```
+        
+    6. ローカルリポジトリの状態を確認する
+        
+        ```bash
+        $ git status
+        
+        # ステージングエリアにあったGit_MEMO.mdは表示されなくなる
+        # ワークツリーのGit_MEMO.mdはそのまま表示されています
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        On branch main
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   Git_MEMO.md
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+- **Point** オススメのコミットメッセージの形式
+    
+    コミットメッセージは1行で簡潔に書くことも、複数行を使って詳細を書くこともできます。
+    
+    複数行で書く場合は1行目に変更内容を要約した短い文章を書き、2行目を空白行にして3行目以降に詳細な説明を書く方法が、Gitの公式サイトに書かれているオススメの書き方です(参考：[https://git-scm.com/docs/git-commit#_discussion](https://git-scm.com/docs/git-commit#_discussion))。複数行で書いた場合は、1行目の内容がコミットタイトルして扱われます。
+    
+- コミットメッセージが1行の時に素早くコミットする
+    
+    コミットメッセージが1行の場合はVisual Studio Codeを開かずに素早くコミットできます。「Git_MEMO.md」を変更してステージングエリアに登録し、-mオプションを利用してコミットしてみましょう。
+    
+    1. 「Git_MEMO.md」ファイルを変更する
+    2. ファイルをステージングエリアに登録する
+        
+        ```bash
+        $ git add Git_MEMO.md
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git add Git_MEMO.md
+        ```
+        
+    3. ステージングエリアの状態を確認する
+        
+        ```bash
+        $ git status
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        On branch main
+        Changes to be committed:
+          (use "git restore --staged <file>..." to unstage)
+        	modified:   Git_MEMO.md
+        # ステージングエリアに登録されている
+        ```
+        
+    4. ファイルをコミットする
+        1. git commitコマンドに-mオプションを付けると、コマンドラインから直接コミットメッセージを指定できます。コミットメッセージは「"」(ダブルクォーテーション)で囲みましょう。
+        
+        ```bash
+        $ git commit -m "ローカルリポジトリの作成とステータスの確認コマンドを記載"
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git commit -m "ローカルリポジトリの作成とステータスの確認コマンドを記載"
+        [main 9c379b8] ローカルリポジトリの作成とステータスの確認コマンドを記載
+         1 file changed, 6 insertions(+), 1 deletion(-)
+        # コミットされて結果が表示される
+        ```
+        
+    5. ステータスを確認する
+        1. 変更を全てコミットすると、ステータスを確認してもファイルは表示されなくなります。その代わりに「nothing to commit, working tree clean(コミットすべきものは何もない、ワークツリーはクリーンだ)」と表示されます。
+        
+        ```bash
+        $ git status
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        On branch main
+        nothing to commit, working tree clean
+        # コミットしていないファイルがないことを意味するメッセージが表示される
+        ```
+        
+- **Point** コミットされるのはその時点でのファイルの状態
+    
+今回は「Git_MEMO.md」を2回コミットしましたが、そこに疑問を感じる人もいるかもしれませんね。コミットされるのは、git addコマンドでステージングエリアに登録した時点のファイルです。登録後にワークツリーで行った変更は含まれていません。新しい変更をステージングエリアに登録するためには、もう一度git addコマンドを実行する必要があります。
+### 用語
+
+- Lesson 19 [操作を取り消す] ローカルリポジトリでの操作を取り消しましょう
+    
