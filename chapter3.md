@@ -405,7 +405,7 @@
         ```bash
         $ git add Git_MEMO.md
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git add Git_MEMO.md
+        ichiyasa % git add Git_MEMO.md
         ```
         
     3. ステージングエリアの状態を確認する
@@ -413,7 +413,7 @@
         ```bash
         $ git status
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        ichiyasa % git status
         On branch main
         Changes to be committed:
           (use "git restore --staged <file>..." to unstage)
@@ -427,7 +427,7 @@
         ```bash
         $ git commit -m "ローカルリポジトリの作成とステータスの確認コマンドを記載"
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git commit -m "ローカルリポジトリの作成とステータスの確認コマンドを記載"
+        ichiyasa % git commit -m "ローカルリポジトリの作成とステータスの確認コマンドを記載"
         [main 9c379b8] ローカルリポジトリの作成とステータスの確認コマンドを記載
          1 file changed, 6 insertions(+), 1 deletion(-)
         # コミットされて結果が表示される
@@ -439,7 +439,7 @@
         ```bash
         $ git status
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        ichiyasa % git status
         On branch main
         nothing to commit, working tree clean
         # コミットしていないファイルがないことを意味するメッセージが表示される
