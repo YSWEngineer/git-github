@@ -938,4 +938,143 @@ Gitで管理すべきではないファイルも存在します。そういう�
 - **untracked**：(追跡されていない)ファイルを表す。</details>
 
 
-- Lesson 22 [コミット履歴の確認] コミットの履歴を確認しましょう
+<details><summary>Lesson 22 [コミット履歴の確認] コミットの履歴を確認しましょう</summary>
+
+ローカルリポジトリに対して何度かコミットした時やリモートリポジトリから変更を反映した時に、どのような作業をしたのか確認したくなることがあると思います。そのようなときは、コミットの履歴を確認することで過去の作業を振り返ることができます。
+
+- ローカルリポジトリのコミットの履歴を確認しよう
+    
+    コミット履歴を確認するにはgit logコマンドを使用します。git logコマンドを実行すると、新しい順に、「コミットハッシュ」「誰がコミットしたか」「コミットした日時」「コミットメッセージ」が表示されます。
+    
+    Chapter 1のコラムで紹介したとおり、「コミットハッシュ」はランダムな英数字で、これを利用することでコミットを特定できます。「誰がコミットをしたか」にはgit configコマンドで設定したユーザー名とメールアドレスが表示されます。
+    
+- コミット履歴を確認する
+    1. 「ichiyasa」ディレクトリのコミット履歴を確認する
+        1. git logコマンドで、コミット履歴を確認できます。コミット履歴は大抵の場合、かなり長くなります。git logコマンドの実行結果がウィンドウに入り切らないときは、ウィンドウの一番下に「:」(コロン)が表示された状態になります。このとき、キーボードの上下キーを押すことで、ウィンドウの表示をスクロールできます。表示を止めるときはQキーを押すと、コマンドラインに戻ります。git configコマンドの操作と同じですね(P.63参照)。
+        
+        ```bash
+        $ git log # コミット履歴を確認するコマンド
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git log
+        commit 06b898e4d511bacaed09c9b70907337724e4f12a (HEAD -> main)
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Tue Aug 2 17:10:57 2022 +0900
+        
+            .gitignoreファイルを追加する
+        
+        commit 642aeee52c97f1379bb7e460b78d6235dbb70f8f
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Tue Aug 2 11:39:24 2022 +0900
+        
+            remove_me.txtファイルを削除する
+        
+        commit eda820545f889d028fbf36f10aa369abf6f1af49
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Tue Aug 2 11:21:09 2022 +0900
+        
+            削除対象のファイルを作成
+        
+        commit 9c379b8acd7ec7c3a801bcac185ee9edc751b2a8
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Sat Jul 30 15:58:36 2022 +0900
+        
+            ローカルリポジトリの作成とステータスの確認コマンドを記載
+        
+        commit 2da8208f45243b64a0b65fe7b36aed23f5f21a14
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Fri Jul 29 16:58:16 2022 +0900
+        
+            Gitの学習メモを作成
+            
+            Gitのコマンドをメモするための学習メモを作成する
+            まずはタイトルだけ記録した。
+        ```
+        
+    2. 差分付きでコミット履歴を確認する
+        1. git logコマンドで履歴を確認する際、コミットメッセージだけでなく、もう少し作業内容の情報が欲しい時もあるかと思います。そのような時はgit logコマンドに「-p」オプションをつけることで、git diffコマンドの時に確認したようなファイルの差分を確認できます。
+        
+        ```bash
+        $ git log -p # 前のコミットとの差分入りでコミットログが表示される
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git log -p                                  
+        commit 06b898e4d511bacaed09c9b70907337724e4f12a (HEAD -> main)
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Tue Aug 2 17:10:57 2022 +0900
+        
+            .gitignoreファイルを追加する
+        
+        diff --git a/.gitignore b/.gitignore
+        new file mode 100644
+        index 0000000..bdbc095
+        --- /dev/null
+        +++ b/.gitignore
+        @@ -0,0 +1 @@
+        +sample.txt
+        \ No newline at end of file
+        
+        commit 642aeee52c97f1379bb7e460b78d6235dbb70f8f
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Tue Aug 2 11:39:24 2022 +0900
+        
+            remove_me.txtファイルを削除する
+        
+        diff --git a/remove_me.txt b/remove_me.txt
+        deleted file mode 100644
+        index e69de29..0000000
+        
+        commit eda820545f889d028fbf36f10aa369abf6f1af49
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Tue Aug 2 11:21:09 2022 +0900
+        
+            削除対象のファイルを作成
+        
+        diff --git a/remove_me.txt b/remove_me.txt
+        new file mode 100644
+        index 0000000..e69de29
+        
+        commit 9c379b8acd7ec7c3a801bcac185ee9edc751b2a8
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Sat Jul 30 15:58:36 2022 +0900
+        
+            ローカルリポジトリの作成とステータスの確認コマンドを記載
+        
+        diff --git a/Git_MEMO.md b/Git_MEMO.md # 前のコミットとの差分入りでコミットログが表示されている箇所
+        index 2a3fcae..ea7bf3a 100644
+        --- a/Git_MEMO.md
+        +++ b/Git_MEMO.md
+        @@ -1,2 +1,7 @@
+         # Git学習メモ
+        -## Gitコマンド
+        \ No newline at end of file
+        +## Gitコマンド
+        +
+        +- ローカルリポジトリを作る
+        +      - git init
+        +- ファイルの状態を確認
+        +      - git status
+        \ No newline at end of file
+        
+        commit 2da8208f45243b64a0b65fe7b36aed23f5f21a14
+        Author: yoshiwo.may15 <yoshiwo.may15@gmail.com>
+        Date:   Fri Jul 29 16:58:16 2022 +0900
+        
+            Gitの学習メモを作成
+            
+            Gitのコマンドをメモするための学習メモを作成する
+            まずはタイトルだけ記録した。
+        
+        diff --git a/Git_MEMO.md b/Git_MEMO.md
+        new file mode 100644
+        index 0000000..2a3fcae
+        --- /dev/null
+        +++ b/Git_MEMO.md
+        @@ -0,0 +1,2 @@
+        +# Git学習メモ
+        +## Gitコマンド
+        \ No newline at end of file
+        ```
+        
+- **ワンポイント** コミット履歴を視覚的に確認する
+    
+    コミットの数が増えてくると、コマンドラインからでは特定のコミットを見つけるのが難しくなってしまいます。GUIクライアントを使えば、コミット履歴を視覚的にわかりやすく確認できます。
+### 用語
