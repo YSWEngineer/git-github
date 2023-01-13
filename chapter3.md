@@ -805,3 +805,137 @@ Gitの管理下にあるファイルは、エクスプローラーなどで削�
 
 
 <details><summary>Lesson 21 [Gitで管理しないファイルを設定] Gitで管理しないファイルを設定しましょう</summary>
+
+Gitで管理すべきではないファイルも存在します。そういうファイルはステージングエリアへ登録しないようにしましょう。このLessonでは、どのようなものを管理すべきでないのか紹介し、それらを無視するための設定方法について紹介します。
+
+- Gitで管理すべきでないファイル
+    
+    Gitでバージョン管理すべきではないファイルというものが存在します。例えば、アプリケーションをビルドする際に自動作成されるパッケージファイルやログファイル、ファイルをコピーしてリネームしたバックアップなどの一時ファイルは、Gitで管理すべきではありません。ログファイルはアプリケーションを実行するたびに出力されるものですし、パッケージファイルはビルドすれば作成されるものなので、あえてバージョン管理をする必要はありません。また、バックアップファイルはGitでバージョン管理をしていれば不要になりますよね。他にも、パスワードのようなセキュリティに関する情報が書かれたファイルも、Gitに登録するべきか必ず検討しましょう。
+    
+    Gitに登録したファイルは、リモートリポジトリを共有しているメンバー全員に公開されてしまいます。「リモートリポジトリを共有しているメンバーに見られてもいい情報なのか」を必ず意識するようにしましょう。
+    
+    - Gitで管理すべきではないファイル
+        - ログファイル
+        - パッケージファイル
+        - バックアップファイル
+        
+        など自動生成される一時ファイルは管理不要。
+        
+        - WindowsのThumbs.db
+        - macOSの.DS_Store
+        
+        OSのファイル管理のためのものなので不要。
+        
+        - パスワードが書かれたファイル
+        
+        リモートリポジトリで共有すべきでない情報。
+        
+    
+    ※不要なファイルがあると、リポジトリのサイズが大きくなったり、無駄なコミットやコンフリクトが発生したりと、いろいろな問題が起きます。
+    
+- Gitで管理しないファイルを設定しよう
+    
+    ステージングエリアへ登録する時に、毎回Gitで管理したくないファイルを意識するのは大変ですし、ミスが発生する可能性もあります。そういう時のためにGitで管理しないファイルを設定できます。設定は簡単で、.gitignoreファイルというテキストファイルをローカルリポジトリに配置して、そこに無視したいファイル名やディレクトリ名を書くだけです。.gitignoreファイルはローカルリポジトリ配下であればどこに置いてもいいですが、.gitignoreファイルが配置されたディレクトリ配下のパスにしか効果がありません。ローカルリポジトリ内のすべてのディレクトリに設定を反映するには「.git」ディレクトリと同じディレクトリに保存しましょう。
+    
+    設定してしまえば、git statusコマンドでファイルが表示されることもなく、git addコマンドでディレクトリを指定した時にも、そのファイルは無視されます。
+    
+    - .gitignoreの配置場所
+        - 「ichiyasa」ディレクトリ(カレントディレクトリ)
+            - 「.git」ディレクトリ
+            - .gitignore
+                - .gitignoreの内容→sample.txt
+            - Git_MEMO.md
+            - sample.txt→.gitignore内にあるのでGitに無視される
+        
+        ※.gitignoreファイルは、その名のとおり「Gitが無視(ignore)する」設定をします。
+        
+    - .gitignoreの書き方
+        - ファイル名を直接指定する
+        - ディレクトリ名を指定する(ディレクトリ全体が対象)
+        - *(アスタリスク)を使えば、ファイルの拡張子で指定できる
+- .gitignoreファイルを作ってみよう
+    
+    .gitignoreの効果を体感するために、Gitの管理から外したい「sample.txt」ファイルを作成し、.gitignoreファイルに指定して無視させてみましょう。
+    
+    1. 「sample.txt」ファイルを作成する
+        1. Visual Studio Codeを起動して、「sample.txt」という名前で保存します。「sample.txt」の中身は何も書かなくて構いません。
+            1. ファイルタグから「新しいテキストファイル」をクリック→ファイルタグから「名前を付けて保存…」をクリック
+            2. Finderが開くので、ファイル名を「sample.txt」という名前に、保存する場所は「Git_MEMO.md」と同じディレクトリにすること。今回の場合は「ichiyasa」という名前のディレクトリ。
+    2. .gitignoreファイルを作る前の状態を確認する
+        
+        ```bash
+        $ git status
+        
+        ichiyasa % git status
+        On branch main
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   Git_MEMO.md
+        
+        Untracked files:
+          (use "git add <file>..." to include in what will be committed)
+        	sample.txt # 「sample.txt」ファイルがUntracked filesに表示されている ファイルを作成しただけでGitの管理下にはファイルが登録されていない状態
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+    3. .gitignoreファイルを作成する
+        1. 次に.gitignoreファイルを作成し、「sample.txt」を指定しましょう。尚、Windowsで.gitignoreファイルのようなファイル名が「.」(ドット)で始まるファイルを作成する場合は、Visual Studio Codeからファイルを作成するようにしてください。それ以外の方法だと面倒な手間が発生することがあります。
+            1. ファイルタグから「新しいテキストファイル」をクリック→ファイルタグから「名前を付けて保存…」をクリック
+            2. Finderが開くので、ファイル名を「.gitignore」という名前に、保存する場所は「sample.txt」と同じディレクトリにすること。今回の場合は「ichiyasa」という名前のディレクトリ。
+    4. .gitignoreファイルを作った後の状態を確認する
+        1. .gitignoreに「sample.txt」を指定した前後でgit statusコマンドの実行結果が変わっています。「sample.txt」が表示されなくなり、ファイルはGitから無視されるようになりました。
+        
+        ```bash
+        $ git status
+        
+        ichiyasa % git status
+        On branch main
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   Git_MEMO.md
+        
+        Untracked files:
+          (use "git add <file>..." to include in what will be committed)
+        	.gitignore # 「sample.txt」ファイルが表示されなくなり、.gitignoreファイルがUntracked filesに表示
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+    5. .gitignoreファイルをステージングエリアに登録する
+        
+        ```bash
+        $ git add .gitignore
+        
+        ichiyasa % git add .gitignore
+        ```
+        
+    6. .gitignoreファイルをコミットする
+        
+        ```bash
+        $ git commit -m ".gitignoreファイルを追加する"
+        
+        ichiyasa % git commit -m ".gitignoreファイルを追加する"
+        [main 06b898e] .gitignoreファイルを追加する
+         1 file changed, 1 insertion(+)
+         create mode 100644 .gitignore # .gitignoreファイルがコミットされた
+        ```
+        
+    
+    ※macOSでは「.DS_Store」ファイル、Windowsでは「Thumbs.db」ファイルが、フォルダーに作成されることがあります。これらのファイルはGitで管理する必要がないので、.gitignoreファイルに設定しておきましょう。
+    
+- **ワンポイント** .gitignoreファイルのテンプレート
+    
+    さまざまなプログラミング言語やツールのための.gitignoreファイルのテンプレートをGitHub社がオープンソースで公開しています。
+    
+    .gitignoreファイルの書き方に迷ったら、こちらを参考にしてみましょう。( [https://github.com/github/gitignore](https://github.com/github/gitignore) )
+### 用語
+- **Gitで管理すべきではないファイル**：アプリケーションをビルドする際に自動作成されるパッケージファイルやログファイル、ファイルをコピーしてリネームしたバックアップなどの一時ファイル。
+- **コンクリフト**：複数ブランチで(複数人で)同じファイルの同じ箇所を編集した後に起こる衝突。必要な内容を勝手に上書きしないための機能。
+- **.gitignore**：Gitで管理したくないファイルやディレクトリを指定するためのファイル。先頭の「.」は隠しファイルであることを意味します。
+- **untracked**：(追跡されていない)ファイルを表す。</details>
+
+
+- Lesson 22 [コミット履歴の確認] コミットの履歴を確認しましょう
