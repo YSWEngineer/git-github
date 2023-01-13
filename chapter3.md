@@ -662,4 +662,146 @@
 
 <details><summary>Lesson 20 [ファイルを削除する] Gitの管理下にあるファイルを削除しましょう</summary>
 
+Gitの管理下にあるファイルは、エクスプローラーなどで削除しただけでは不十分です。削除をステージングエリアに登録し、コミットしなければいけません。git rmコマンドを使うと、ファイルの削除とステージングエリアへの登録をコマンド1つで実行してくれます。
+
+- Git管理下のファイルを削除しよう
     
+    git rmコマンドはGitで管理しているファイルやディレクトリを削除するためのコマンドです。このコマンドを実行すると、ワークツリーからファイルやディレクトリを削除し、削除した状態をステージングエリアに登録します。その後でコミットすると削除作業が完了します。
+    
+    ※エクスプローラーやFinderでファイルやディレクトリを削除した場合は、git addコマンドを使って「ファイルを削除した状態」をステージングエリアに登録してください。git rmコマンドはそれらをまとめてやってくれるコマンドです。
+    
+- ディレクトリを削除するときは書き方が異なる
+    
+    ディレクトリを削除するにはgit rmコマンドに-rオプションを指定します。-rとはrecursive(再帰的)の略で、「指定したディレクトリの中にあるファイルやディレクトリに対して、削除の処理を繰り返し実行する」という意味を持ちます。-rオプションをつけないと中身があるディレクトリを削除できません。
+    
+    - ファイルやディレクトリを削除するコマンド
+        
+        ```bash
+        $ git rm remove_me.txt
+        # git rm = git rmコマンド
+        # remove_me.txt = ファイルパス
+        ```
+        
+        ```bash
+        $ git rm -r subDirectory
+        # -r = -rオプション
+        # subDirectory = ディレクトリパス
+        ```
+        
+        ※ディレクトリを削除するときは、-rオプションを忘れないようにしましょう。
+        
+- 不要なファイルをわざと追加して削除する
+    
+    git rmコマンドの使い方を学ぶために、次ページの手順では一旦不要なファイル(remove_me.txt)を作成します。それをコミットした後、git rmコマンドで削除してみましょう。
+    
+    - 次ページで行う作業
+        1. 作成する
+            1. ワークツリーにremove_me.txtファイルが作られる。
+        2. 登録する
+            1. ステージングエリアにremove_me.txtファイルが登録される。
+        3. コミット
+            1. Gitディレクトリにremove_me.txtファイルがコミット(記録)される。
+        4. 削除する
+            1. remove_me.txtファイルを削除してワークツリーに登録する。
+            2. 削除したremove_me.txtファイルをステージングエリアに登録する。
+        5. コミットする
+            1. Gitディレクトリに削除したremove_me.txtファイルを登録する。
+- 「remove_me.txt」ファイルを用意する
+    1. 削除するファイルを作成する
+        1. Visual Studio Codeを起動してファイルを新規作成し、「remove_me.txt」という名前で保存します。削除を試すためのものなので中身は入力しません。
+            1. ファイルタグから「新しいテキストファイル」をクリック→ファイルタグから「名前を付けて保存…」をクリック
+            2. Finderが開くので、ファイル名を「remove_me.txt」という名前に、保存する場所は「Git_MEMO.md」と同じディレクトリにすること。今回の場合は「ichiyasa」という名前のディレクトリ。
+    2. ファイルをステージングエリアに登録する
+        
+        ```bash
+        $ git add remove_me.txt
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git add remove_me.txt
+        ```
+        
+    3. ファイルをコミットする
+        
+        ```bash
+        $ git commit -m "削除対象のファイルを作成"
+        # git commitコマンドに-mを付けると、コマンドラインから直接コミットメッセージを指定できる
+        # このとき指定するメッセージは「"」ダブルクォーテーションで囲むこと
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git commit -m "削除対象のファイルを作成"
+        [main eda8205] 削除対象のファイルを作成
+         1 file changed, 0 insertions(+), 0 deletions(-)
+         create mode 100644 remove_me.txt
+        ```
+        
+    4. ディレクトリにあるファイルを確認する
+        
+        ```bash
+        $ ls
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % ls
+        Git_MEMO.md	remove_me.txt # 「remove_me.txt」ファイルが存在していることを確認
+        ```
+        
+- 「remove_me.txt」ファイルを削除する
+    1. ファイルを削除する
+        
+        ```bash
+        $ git rm remove_me.txt
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git rm remove_me.txt
+        rm 'remove_me.txt'
+        ```
+        
+    2. ディレクトリにあるファイルを確認する
+        
+        ```bash
+        $ ls
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % ls
+        Git_MEMO.md # 「remove_me.txt」ファイルが削除されていることがわかる
+        ```
+        
+        ※git rmコマンドでファイルを削除してもコミットされたわけではありません。コミットしないとバージョン管理されないので、git rmコマンドの実行後にコミットすることを忘れないようにしましょう。
+        
+    3. ファイルの状態を確認する
+        
+        ```bash
+        $ git status
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git status
+        On branch main
+        Changes to be committed:
+          (use "git restore --staged <file>..." to unstage)
+        	deleted:    remove_me.txt # 「remove_me.txt」ファイルの状態がdeletedとしてステージングエリアに登録されている
+        
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   Git_MEMO.md
+        ```
+        
+    4. ファイルを削除したことをコミットする
+        
+        ```bash
+        $ git commit -m "remove_me.txtファイルを削除する" # git commit -mでコマンドラインから直接コミットメッセージを指定できる
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git commit -m "remove_me.txtファイルを削除する"
+        [main 642aeee] remove_me.txtファイルを削除する #削除したことがコミットされる
+         1 file changed, 0 insertions(+), 0 deletions(-)
+         delete mode 100644 remove_me.txt
+        ```
+        
+- **ワンポイント** 改行コードの警告
+    
+    git addコマンドの実行結果に「warning: LF will be replaced by CRLF in ファイル名」という警告が表示されることがあります。
+    
+    これは、Gitのインストール次に指定した改行コードの設定が影響しており(P.37参照)、改行コードを「LF」で保存したファイルが、「CRLF」に変換されることがあると警告しています。ファイルの改行コードを変換したくない場合は、P.63で学んだgit configコマンドでcore.autocrifの設定をfalseにしましょう。
+### 用語
+- **git rmコマンド**：Gitで管理しているファイルやディレクトリを削除するためのコマンド。
+- **git rm -r**：git rmに-rオプションを指定すると、「指定したディレクトリの中にあるファイルやディレクトリに対して、削除の処理を繰り返し実行する」という意味を持つ。-rはrecursive(再帰的(コンピューターで、ある作業中に、さらに同じ作業を呼び出して処理すること))の略。
+- **git addコマンド**：ステージングエリアにファイルを登録する。
+- **git commitコマンド**：コミットを作成する(ファイルはステージングエリアからGitディレクトリに移動する(コミット(記録)される))。
+- **git commit -m**：コマンドラインから直接コミットメッセージを指定できる。この時、コミットメッセージは「"」ダブルクォーテーションで囲むこと。
+- **lsコマンド**：カレントディレクトリ内のファイルとディレクトリが表示される。</details>
+
+
+<details><summary>Lesson 21 [Gitで管理しないファイルを設定] Gitで管理しないファイルを設定しましょう</summary>
