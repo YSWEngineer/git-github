@@ -459,5 +459,206 @@
 
 <details><summary>Lesson 19 [操作を取り消す] ローカルリポジトリでの操作を取り消しましょう</summary>
 
+不要な変更をしていることに気がついて最後のコミットまで状態を戻したくなったり、誤ってステージングエリアに登録したものを取り消したくなったりすることがあります。このLessonでは、そのような変更を取り消す方法を2つ紹介します。
 
+- 変更を取り消したくなるシチュエーションとは？
+    
+    ここまでにステージングエリアへの登録など、コミットするまでの一連の流れを説明してきました。しかし、ファイルを間違えて登録してしまった場合など、変更を取り消したくなることもあるかと思います。このLessonでは、ワークツリーへの変更を取り消す方法(git checkoutコマンド)と、ステージングエリアへの変更を取り消す方法(git resetコマンド)について紹介します。ワークツリーへの変更の取り消しでは、ファイルの状態が直前のコミット(または直前のステージングエリアへの登録)に戻ります。ステージングエリアへの変更の取り消しは、ファイルの状態はそのままでステージングエリアへの登録だけを取り消します。
+    
+    ※変更の取り消しといっても、エディターの「元に戻す」機能とは違います。
+    
+- git checkoutコマンドでワークツリーの変更を取り消す
+    
+    ファイルを色々と変更してしまったけれど、やっぱり直前にコミットした状態まで戻したくなった場合は、git checkoutコマンドを使ってワークツリーの変更を取り消せます。
+    
+    Chapter 5でも説明しますが、このコマンドはパラメーターにブランチ名を指定するとブランチを切り替えられます。今回のようにブランチ名ではなく「--」(ハイフン2つ)を指定すると、「直前のコミットの状態に戻す」という働きをします。
+    
+- **ワンポイント** git checkoutコマンドで取り消せないケース
+    
+    git checkoutコマンドで操作を取り消せない場合もあります。代表的なケースは、ファイルを新規作成したときやファイル名を変更したときです。ファイルを新規作成したときはファイルがそのまま残ってしまします。また、ファイル名を変更したときは、変更前のファイルと変更後のファイルの両方が残ってしまいます。どちらのケースも不要なファイルは自分で削除します。
+    
+- **ワンポイント** 新しく追加されたgit restoreとgit switchコマンド
+    
+    git checkoutコマンドはワークツリーの変更を取り消す以外にも、特定のコミットにワークツリーの状態を切り替えたり、ブランチの作成や切り替えができたりと、ひとつのコマンドで色々な操作ができます。多くの操作ができるのは便利ですがわかりづらくもあります(ブランチについてはChapter 5で紹介します)。
+    
+    そのため、よりわかりやすい役割分担のために導入されたのがgit restoreコマンドとgit switchコマンドです。git restoreコマンドを使うとワークツリーやステージングエリアの変更を取り消せます。そして、git switchコマンドを使うとブランチを切り替えられます。それぞれのコマンドでできることが少ないので、役割が明確でシンプルです。
+    
+    2つのコマンドはまだ正式版ではなく実験的にリリースされている状態であり、今度使い方が変更される可能性もあるので、本書では主にgit checkoutコマンドを使って解説します。しかし、git statusコマンドを実行した時に変更を取り消すヒントとして既にgit restoreコマンドが表示されていることから、今後は新しいコマンドの利用が推奨されていくと思います。そのため、どちらも試せるように、必要と思われる箇所では新しいコマンドを使う場合の方法も記載します。
+    
+- 「Git_MEMO.md」ファイルへの変更を取り消す
+    1. 「Git_MEMO.md」ファイルを変更する
+        
+        ```bash
+        # Git学習メモ
+        ## Gitコマンド
+        
+        - ローカルリポジトリを作る
+              - git init
+        - ファイルの状態を確認
+              - git status
+        - ファイルを登録する # この2行を追記してファイルを上書き保存
+              - git add
+        ```
+        
+    2. ワークツリーの状態を確認する
+        1. 一旦git statusコマンドを実行して、ワークツリーの状態を確認しておきましょう。
+        
+        ```bash
+        $ git status
+        
+        ichiyasa % git status
+        On branch main
+        Changes not staged for commit: # ステージングエリアに登録されていない変更が表示される
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory) # ワークツリーディレクトリの変更を捨てるためにgit restore <file>を使用せよ
+        	modified:   Git_MEMO.md
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+        ※ステータスを確認した時、「use "git restore <faile>...” to discard changes in working directory」(ワークツリーの変更を捨てるには「git restore <file>」を使え)と表示されています。このように、Gitは操作のヒントを表示してくれることがあります。本書では次ページの方法で変更の取り消しを行いますが、どちらの方法でも構いません。
+        
+    3. ワークツリーの変更を取り消す
+        
+        ```bash
+        $ git checkout -- Git_MEMO.md
+        
+        ichiyasa % git checkout -- Git_MEMO.md
+        # git restore Git_MEMO.mdでも同じことができる
+        ```
+        
+    4. ワークツリーの状態を確認する
+        
+        ```bash
+        $ git status
+        
+        ichiyasa % git status
+        On branch main
+        nothing to commit, working tree clean # ワークツリーにはコミットしていないファイルがない、と表示
+        ```
+        
+    5. ファイルを確認する
+        
+        ```bash
+        # Git学習メモ
+        ## Gitコマンド
+        
+        - ローカルリポジトリを作る
+              - git init
+        - ファイルの状態を確認
+              - git status
+        # ファイルは最後にコミットした状態へ戻っている(2行を付け加える前の状態)
+        ```
+        
+        ※厳密にいうと、git checkoutコマンドは最後にコミットした状態ではなく、ステージングエリアの状態に戻すコマンドです。ステージングエリアにファイルの状態が登録されたままになっていると想定通りの動作になりませんそのような場合は、次で学ぶgit resetコマンドを使いましょう。
+        
+- ステージングエリアへの登録を取り消す
+    
+    間違ってファイルの状態をステージングエリアに登録してしまった時には、git resetコマンドを使って操作を取り消せます。先程学んだgit checkoutコマンドとは異なり、ワークツリー内のファイルの変更は取り消されません。下図のコマンドでは、git resetコマンドの後ろにHEADと指定していますね。
+    
+    HEADは、このローカルリポジトリで最後にコミットした状態を意味しています。ステージングエリアの状態を最後のコミットと同じ状態にリセットするという意味になります。
+    
+    - ステージングエリアへの登録を取り消すコマンド
+        
+        ```bash
+        $ git reset HEAD Git_MEMO.md
+        # git reset=git resetコマンド
+        # HEADは最新のコミットを指す
+        # Git_MEMO.md=ファイルパスまたはディレクトリパス
+        ```
+        
+- **ワンポイント** git resetコマンドの働き
+    
+    git resetコマンドには、コミットをなかったことにする機能もあります。しかし、コミット自体に手を加えると様々な問題を引き起こすことがあるので、なるべく避けたほうがいいでしょう。
+    
+    コミットした内容を取り消したいときは、ファイルを以前の状態に修正して新しく「取り消すためのコミット」を追加しましょう。
+    
+- ステージングエリアへの登録を取り消す
+    1. 「Git_MEMO.md」ファイルを変更する
+        
+        ```bash
+        # Git学習メモ
+        ## Gitコマンド
+        
+        - ローカルリポジトリを作る
+              - git init
+        - ファイルの状態を確認
+              - git status
+        - ファイルを登録する # この2行を追記してファイルを上書き保存
+              - git add
+        ```
+        
+    2. ファイルをステージングエリアに登録する
+        
+        ```bash
+        $ git add Git_MEMO.md
+        
+        ichiyasa % git add Git_MEMO.md
+        ```
+        
+    3. ローカルリポジトリの状態を確認する
+        
+        ```bash
+        $ git status
+        
+        ichiyasa % git status
+        On branch main
+        Changes to be committed:
+          (use "git restore --staged <file>..." to unstage)
+        	modified:   Git_MEMO.md
+        ```
+        
+        ステージングエリアに登録されたことを確認しましょう。メッセージを見ると「use "git restore --staged <file>..." to unstage」(アンステージにするには「git reset HEAD <file>...」を使え)と表示されています。
+        
+    4. ステージングエリアへの登録を取り消す
+        
+        ```bash
+        $ git reset HEAD Git_MEMO.md
+        
+        ichiyasa % git reset HEAD Git_MEMO.md # git restore --staged Git_MEMO.mdでも同じことができます。
+        Unstaged changes after reset: # リセットによってGit_MEMO.mdがunstagedされたと表示されています
+        M	Git_MEMO.md
+        ```
+        
+    5. ローカルリポジトリの状態を確認する
+        
+        ```bash
+        $ git status
+        
+        ichiyasa % git status
+        On branch main
+        Changes not staged for commit: # Git_MEMO.mdはステージングエリアに登録されていないと表示される
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   Git_MEMO.md
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+    6. 「Git_MEMO.md」ファイルを確認する
+        
+        ```bash
+        # Git学習メモ
+        ## Gitコマンド
+        
+        - ローカルリポジトリを作る
+              - git init
+        - ファイルの状態を確認
+              - git status
+        - ファイルを登録する # ファイルの内容は変更後の状態のままです
+              - git add
+        ```
+        
+        ※ファイルの内容も変更前に戻したい場合は、先程紹介したgit checkoutコマンドを使いましょう。
+### 用語
+- **git checkoutコマンド**：ワークツリーへの変更を取り消す。ブランチを作る。ブランチを切り替える。コミットした状態に切り替える。と、ひとつのコマンドで色々な操作ができる。一方で多いがためにわかりづらい側面もある。
+    - **git checkout --**：直前のコミットの状態に戻す。
+- **git reset**：ステージングエリアに追加した変更をワークツリーへ戻す(git add(ステージングエリアにファイルを登録する)を取り消す)。
+- **git restoreコマンド**：ワークツリーやステージングエリアの変更を取り消すことができる。
+- **git switchコマンド**：ブランチを切り替えられる。
+- **ブランチ**：Gitで記録する履歴を枝分かれさせるための機能。複数の作業を並行して進める時に使用する。
+- **git reset HAED**：ステージングエリアの状態を最後のコミットと同じ状態にリセットする。この時のHAEDは、ローカルリポジトリで最後にコミットした状態を意味する。</details>
+
+
+- Lesson 20 [ファイルを削除する] Gitの管理下にあるファイルを削除しましょう
     
