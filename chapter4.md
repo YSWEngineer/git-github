@@ -362,4 +362,49 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
 
 <details><summary>Lesson 27 [開発環境の準備] Webページの編集作業をするための準備をしましょう</summary>
 
+最後に、クローンで取得したサンプルプロジェクトを編集したり、Webページとして表示したりする手順を説明します。ここまで済ませれば本格的な共同開発へ移ることができるので、楽しみにしていてくださいね。
 
+- サンプルプロジェクトをVisual Studio Codeで編集しよう
+    
+    Markdowwnファイルを扱っていたこれまでのChapterとは異なり、Chapter 5以降は主な編集対象がHTMLファイルとなります。しかし、Visual Studio Codeで作業をしていくことに変わりはありません。Visual Studio Codeはマウス操作で起動してもいいのですが、コマンドラインから起動して、Gitの操作からスムーズに切り替える方法を紹介します。本書の手順に沿ってVisual Studio Codeをインストールしていれば、WindowsでもmacOSでもcodeコマンドで起動できます。
+    
+    - codeコマンドの使い方
+        
+        ```bash
+        $ code /c/Users/ichiyasa/ichiyasaGitSample
+        # code = codeコマンド
+        # /c/Users/ichiyasa/ichiyasaGitSample = Visual Studio Codeの作業フォルダーにするディレクトリパス
+        ```
+        
+- コマンドラインからVisual Studio Codeを起動する
+    1. codeコマンドを入力する
+        1. codeコマンドの後にディレクトリパスを書きます。すでにローカルリポジトリのディレクトリを表示している場合は、カレントディレクトリを表す相対パスの「.」(ドット)を指定するだけで済みます。
+            
+            ```bash
+            $ code .
+            ```
+            
+            ![code command.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8b84eb9-63cf-46a2-976b-bf6832cf6b48/code_command.png)
+            
+    2. Visual Studio Codeでファイルを開く
+        1. ディレクトリを指定して起動すると、左側のエクスプローラーにそのディレクトリ内のファイルやディレクトリが表示されます。ファイル名をクリックして数早く開くことができます。
+            
+            ![VS Code open.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e5924cc0-2bbe-4320-818c-88e5f21dba0a/VS_Code_open.png)
+            
+- ブラウザーでWebページの表示を確認しよう
+    
+    Visual Studio CodeでHTMLを見るだけでなく、ブラウザーでWebページとしての見た目を確認しながら進めるとイメージしやすいはずです。先程クローンで取得したファイルのうち、index.thmlをブラウザーで開いてみてください。Windowsならエクスプローラー、macOSならFinderでクローンしたディレクトリ(フォルダー)を開き、ファイルをダブルクリックしてください。--Finderからクローンしたディレクトリを開いて確認済み。
+    
+    ※HTMLについての知識はなくてもLessonは進められるので、心配無用です。本書の真似をしながら進めてくださいね。
+    
+- **ワンポイント** コマンドラインからエクスプローラーやFinderを起動する
+    
+    エクスプローラーやFinderも、パスを指定してコマンドを実行するとコマンドラインから起動できます。何度もクリックしてディレクトリを移動する必要がなくなるのでオススメです。これも絶対パス/相対パスのいずれでも指定が可能ですが、ここでは絶対パスを使っていきます。
+    
+    - macOSの場合
+    
+    ```bash
+    $ open /Users/ichiyasa/ichiyasaGitSample
+    ```
+
+### 用語
