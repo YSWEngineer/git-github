@@ -255,3 +255,101 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
 
 <details><summary>Lesson 26 [リモートリポジトリのクローン] イベント案内ページをパソコンに取得しましょう</summary>
 
+シガさんが用意したリポジトリを自分のパソコンで使えるようにしましょう。手順は簡単で、たった1コマンド、リモートリポジトリをローカルリポジトリとしてコピーする操作を行うだけです。この操作を「クローン」といいます。
+
+- シガさんが作成したページをローカルリポジトリに取得する
+    
+    シガさんはWebページのソースコードをGitHubに公開してくれました。1つ前のLessonでそれを複製して、イチヤサさん(あなた)のリポジトリを作成しました。今度はそれを自分のローカルリポジトリとして取得し、開発の準備を整えます。この操作はgit cloneコマンドで行います。
+    
+    - クローンでリモートリポジトリを作成する
+        1. シガさんの[yasagit-2アカウントのichiyasaGitSampleリポジトリ](リモートリポジトリ)をフォークする。
+        2. フォークでシガさんのリポジトリを複製したリポジトリにクローンを行う。
+        3. (クローンを行った結果)ローカルリポジトリを作成。
+    - git cloneコマンドの使い方
+        
+        ```bash
+        $ git clone git@github.com:ichiyasa-g-2/ichiyasaGitSample.git
+        # git clone = git cloneコマンド
+        # git@github.com:ichiyasa-g-2/ichiyasaGitSample.git = GitHubからコピーするクローン用URL
+        ```
+        
+- リモートリポジトリをクローンしよう
+    1. リモートリポジトリのURLを取得する
+        1. 初めに、リモートリポジトリを特定するためのURLをGitHubで取得しましょう。①フォークしたリポジトリのページで[Code]をクリックし、②[SSH]のタブを選択してから③クリップボードのコピーしましょう。
+        
+        ![[Code]SSH.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1fe779f-df1e-42d1-826a-0cafaacba86c/CodeSSH.png)
+        
+    2. クローンを実行する
+        1. git cloneコマンドでクローンを実行しましょう。パラメーターにリモートリポジトリのURLを指定して実行すると、そのコピーがローカルリポジトリとして作成されます。Git Bashで貼り付けを行うには、画面上を右クリックして表示されるメニューから[Paste]を選択するか、shift + Insert キーを押します。
+        
+        ```bash
+        # ①git cloneと入力 ②スペースを入れた後ろにSSHタブで表示されたURLを貼り付ける
+        $ git clone git@github.com:YSWEngineer/ichiyasaGitSample.git
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git clone git@github.com:YSWEngineer/ichiyasaGitSample.git
+        Cloning into 'ichiyasaGitSample'...
+        Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
+        remote: Enumerating objects: 26, done.
+        remote: Total 26 (delta 0), reused 0 (delta 0), pack-reused 26
+        Receiving objects: 100% (26/26), 1.36 MiB | 1.53 MiB/s, done.
+        # クローンの実行によりリポジトリがコピーされ、パソコンでファイルを確認できるようになる
+        ```
+        
+        ※Chapter 3では、git initコマンドを使ってリポジトリを作成する方法を説明しました。ここで説明するgit cloneコマンドはもう1つの作成方法です。
+        
+    3. クローンされたリポジトリのディレクトリに移動する
+        1. ホームディレクトリの直下でgit cloneコマンドを実行したため、その中に「ichiyasaGitSample」ディレクトリが作られているはずです。そこがローカルリポジトリなのでcdコマンドでディレクトリ内に移動しましょう。
+        
+        ```bash
+        $ cd ichiyasaGitSample/
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % cd ichiyasaGitSample/
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % # 作成されたディレクトリに移動できた
+        ```
+        
+- リモートリポジトリの設定を確認しよう
+    
+    git remoteコマンドを使うと、リモートリポジトリの設定を確認したり変更したりすることができます。ここでは、先程クローンしたリポジトリが設定されていることを確認してみましょう。URL情報を確認できる-vオプションをつけて実行すると、「origin」という文字の後に先程指定したURLが2回表示されるはずです。
+    
+    - git remoteコマンド
+        
+        ```bash
+        $ git remote -v # URL情報を確認できる
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git remote -v
+        origin	git@github.com:YSWEngineer/ichiyasaGitSample.git (fetch)
+        origin	git@github.com:YSWEngineer/ichiyasaGitSample.git (push)
+        ```
+        
+- originはリモートリポジトリを表している
+    
+    git remoteコマンドの実行結果を見ると、「origin」という文字が表示されています。これはクローン元のリモートリポジトリを表す名前です。実はGitでは、1つのローカルリポジトリに対してリモートリポジトリを複数設定できるので、それぞれを識別するために名前が必要です。クローンすると、クローン元のリポジトリにはGitが初期値としてoriginという名前を付けます。この名前は後から変更することも可能ですが、慣習的にoriginのまま使います。今後もコマンドのパラメーターとしてoriginを指定する場面が多々ありますが、どのリモートリポジトリに対して操作するのかを明確にするためだと覚えておきましょう。
+    
+    ※ちょっとややこしい話ですが、今回はリモートリポジトリが1つだけなので、とりあえず「originという名前がリモートリポジトリを表す」と覚えておけば大丈夫です。
+    
+- **ワンポイント** GitHubがコマンドで操作できるようになった
+    
+    本書ではGitHubの操作をブラウザ上で行っていますが、2020年9月に正式リリースされた「GitHub CLI」を使うとコマンドでも扱うことができます(CLIはコマンドラインインターフェースの略)。GitHub上のリポジトリや、後の章で紹介するプルリクエストやイシューなどを管理できるので、ターミナルとブラウザを行き来する頻度を減らせます。
+    
+    クローンをする際に[HTTPS],[SSH]の他に[GitHub CLI]のタブがあったのにお気付きでしょうか。ここでGitHub CLIをローカルで実行するためのコマンドをコピーできます。
+    
+    但し、あくまでGitHubを使うためのツールであり、これまで学んできたようなGitの操作ができるわけではないので混同に注意しましょう。
+    
+- **ワンポイント** GitHubでリポジトリを新規作成する方法
+    
+    フォークを利用してリポジトリを作成する方法を説明しましたが、新規でリポジトリを作成する方法も知っておきましょう。リポジトリの名前や公開/非公開設定など、最低限の入力だけ済ませればすぐに作ることができます。
+    
+    - リポジトリ作成画面を利用して新規リポジトリを作成
+        1. 右上の[+]メニューから[New repository]をクリック
+            
+            ![New repository.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/03ef5ba5-dff4-4247-8ca5-6601e464f93c/New_repository.png)
+            
+        2. リポジトリ名や公開レベル(パブリックかプライベートか)などを入力
+        3. [Create repository]をクリック
+            
+            ![Create a new repository.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/085edb6d-ed64-4218-ac35-4e5d1317e3ed/Create_a_new_repository.png)
+            
+        
+        ※以前はプライベート(非公開)リポジトリの作成が有料でしたが、2019年より無料になりました。
+        
+- Lesson 27 [開発環境の準備] Webページの編集作業をするための準備をしましょう
