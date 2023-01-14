@@ -276,9 +276,7 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
 - リモートリポジトリをクローンしよう
     1. リモートリポジトリのURLを取得する
         1. 初めに、リモートリポジトリを特定するためのURLをGitHubで取得しましょう。①フォークしたリポジトリのページで[Code]をクリックし、②[SSH]のタブを選択してから③クリップボードのコピーしましょう。
-        
-        ![[Code]SSH.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1fe779f-df1e-42d1-826a-0cafaacba86c/CodeSSH.png)
-        
+                
     2. クローンを実行する
         1. git cloneコマンドでクローンを実行しましょう。パラメーターにリモートリポジトリのURLを指定して実行すると、そのコピーがローカルリポジトリとして作成されます。Git Bashで貼り付けを行うには、画面上を右クリックして表示されるメニューから[Paste]を選択するか、shift + Insert キーを押します。
         
@@ -286,7 +284,7 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
         # ①git cloneと入力 ②スペースを入れた後ろにSSHタブで表示されたURLを貼り付ける
         $ git clone git@github.com:YSWEngineer/ichiyasaGitSample.git
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % git clone git@github.com:YSWEngineer/ichiyasaGitSample.git
+        ichiyasa % git clone git@github.com:YSWEngineer/ichiyasaGitSample.git
         Cloning into 'ichiyasaGitSample'...
         Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
         remote: Enumerating objects: 26, done.
@@ -303,8 +301,8 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
         ```bash
         $ cd ichiyasaGitSample/
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasa % cd ichiyasaGitSample/
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % # 作成されたディレクトリに移動できた
+        ichiyasa % cd ichiyasaGitSample/
+        ichiyasaGitSample % # 作成されたディレクトリに移動できた
         ```
         
 - リモートリポジトリの設定を確認しよう
@@ -316,7 +314,7 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
         ```bash
         $ git remote -v # URL情報を確認できる
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git remote -v
+        ichiyasaGitSample % git remote -v
         origin	git@github.com:YSWEngineer/ichiyasaGitSample.git (fetch)
         origin	git@github.com:YSWEngineer/ichiyasaGitSample.git (push)
         ```
@@ -340,15 +338,9 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
     フォークを利用してリポジトリを作成する方法を説明しましたが、新規でリポジトリを作成する方法も知っておきましょう。リポジトリの名前や公開/非公開設定など、最低限の入力だけ済ませればすぐに作ることができます。
     
     - リポジトリ作成画面を利用して新規リポジトリを作成
-        1. 右上の[+]メニューから[New repository]をクリック
-            
-            ![New repository.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/03ef5ba5-dff4-4247-8ca5-6601e464f93c/New_repository.png)
-            
+        1. 右上の[+]メニューから[New repository]をクリック            
         2. リポジトリ名や公開レベル(パブリックかプライベートか)などを入力
-        3. [Create repository]をクリック
-            
-            ![Create a new repository.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/085edb6d-ed64-4218-ac35-4e5d1317e3ed/Create_a_new_repository.png)
-            
+        3. [Create repository]をクリック            
         
         ※以前はプライベート(非公開)リポジトリの作成が有料でしたが、2019年より無料になりました。
 ### 用語
@@ -384,12 +376,8 @@ GitHubに対して操作を行う際、認証が必要になることがあり�
             $ code .
             ```
             
-            ![code command.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8b84eb9-63cf-46a2-976b-bf6832cf6b48/code_command.png)
-            
     2. Visual Studio Codeでファイルを開く
         1. ディレクトリを指定して起動すると、左側のエクスプローラーにそのディレクトリ内のファイルやディレクトリが表示されます。ファイル名をクリックして数早く開くことができます。
-            
-            ![VS Code open.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e5924cc0-2bbe-4320-818c-88e5f21dba0a/VS_Code_open.png)
             
 - ブラウザーでWebページの表示を確認しよう
     
