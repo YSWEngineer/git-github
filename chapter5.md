@@ -34,5 +34,165 @@ GitHubを用いたメジャーな作業フローで、イベントページの�
 ### 用語
 - **ブランチ**：Gitで記録する履歴を枝分かれさせるための機能。複数の作業を並行して進めるときに使用する。ブランチはマージ(統合)できる。
 - **マージ**：枝分かれさせたブランチを統合すること。
-    - マージはローカルリポジトリでGitコマンドにより実行することもできるし、GitHubを使ってリモートリポジトリ上でも行うことができる。
-- Lesson 29 [ブランチを用いた実践1] 専用のブランチでイベント会場の情報を更新しましょう
+    - マージはローカルリポジトリでGitコマンドにより実行することもできるし、GitHubを使ってリモートリポジトリ上でも行うことができる。</details>
+
+
+<details><summary>Lesson 29 [ブランチを用いた実践1] 専用のブランチでイベント会場の情報を更新しましょう</summary>
+
+ブランチを活用し、シガさんが作ったページ上のイベント開催会場を「株式会社〇〇」から「株式会社インプレス」に変更します。使うコマンドは今後も頻繁に使う基本的なものばかりなので、少しずつ覚えましょう。
+
+- ブランチを用いてイベントの会場情報を更新する
+    
+    Chapter 4でローカルリポジトリに取得したサンプルプロジェクト(初心者向けGit勉強会のイベントページ)を編集しながら進めます。シガさんがページを作成したときには会場が未定だったため、「株式会社〇〇」と記載していましたが、「株式会社インプレス」で決定となりました。イチヤサさんは、イベント会場を更新するためのブランチを作成し、HTMLの編集とコミットを行います。コミットが完了したら、masterブランチにマージするための作業を行います。マージは、ローカルリポジトリでGitコマンドにより実行することもできますが、今回はGitHubを使ってリモートリポジトリ上で行います。それが完了すると会場情報の変更を無事プロジェクトに反映できたことになり、作成したブランチは役目を終えます。このような、短期的に使う作業用のブランチを「トピックブランチ」と呼びます。
+    
+    ※マージするときにGitHubの「プルリクエスト」という機能を利用します。
+    
+- ブランチを作成するためのGitコマンド
+    
+    ブランチを操作するためのgit branchコマンドを使うと、ブランチの作成ができます。作成したいブランチの名前を指定して実行します。
+    
+    - git branchコマンド
+        
+        ```bash
+        $ git branch update-venue
+        # git branch = git branchコマンド
+        # update-venue = 作成するブランチ名
+        ```
+        
+    
+    ※作成、名前の変更、削除など、ブランチに対する操作を行えるのがgit branchコマンドです。
+    
+- ブランチは切り替えながら使用する
+    
+    ブランチが複数存在する状況では、「どのブランチに対して操作を行うか」ということを意識しなくてはなりません。操作対象となるブランチを指定するには、git checkoutコマンドを用います。このコマンドを実行すると、それ以降の操作対象が切り替わり、指定したブランチが使われるようになります。例えば、update-venueブランチをチェックアウトした後にコミットをすると、update-venueブランチのみコミットが追加され、それ以外のブランチには追加されません。
+    
+    - git checkoutコマンド
+        
+        ```bash
+        $ git checkout update-venue
+        # git checkout = git checkoutコマンド
+        # rpdate-venue = 切り替え先のブランチ名
+        ```
+        
+    
+    ※はじめは複数のブランチを使うことに混乱するかもしれませんが、ゆっくりと確認しながら作業して慣れていきましょう。
+    
+- ブランチを作成して切り替える
+    1. ブランチを作成する
+        1. git branchコマンドを用い、ブランチを作成します。ここでは、「開催会場を更新する」という作業内容を示す「update-venue」という名前のブランチにします。
+        
+        ```bash
+        $ git branch update-venue
+        
+        % git branch update-venue
+        ```
+        
+        ※もし打ち間違いなどでブランチ名を誤って作成してしまったら、再度改めて正しいブランチ名でコマンドを実行すれば大丈夫です。誤った名前の不要なブランチは、P.206に記載の手順で削除できます。
+        
+    2. 使用中のブランチを確認する
+        1. ブランチ名の指定なしにgit branchコマンドを実行すると、作成済みのブランチ一覧と現在使用中のブランチを確認できます。先頭にアスタリスク(*)が付いているのが、今使っているブランチです。
+        
+        ```bash
+        $ git branch
+        
+        % git branch
+        * master # *が付いているのが今使っているブランチを意味する masterブランチを使用していることがわかる
+          update-venue # 先程作成したupdate-venueブランチ
+        ```
+        
+        ※Git Bashでは、カレントディレクトリと一緒に「(使用中のブランチ名)」が表示されているので、すぐに確認できます。
+        
+    - **ワンポイント** git checkoutコマンドに代わるコマンド
+        
+        Chapther 3で紹介したとおり、git checkoutコマンドによるブランチの切り替えはgit switchコマンドでも実行できます。これ以降、必要に応じてgit switchを使う方法も紹介します。
+        
+    1. ブランチをチェックアウトする
+        1. 今はまだmasterブランチを使用していることがわかりました。先程作成したupdate-venueブランチへと切り替えるには、「チェックアウト」という操作が必要です。使いたいブランチ名を指定し、git checkoutコマンドを実行してみましょう。
+        
+        ```bash
+        $ git checkout update-venue # update-venueブランチに切り替える
+        
+        % git checkout update-venue # git switch update-venueでも同じことができる
+        Switched to branch 'update-venue' # update-venueブランチに切り替わった
+        ```
+        
+    2. 使用中のブランチを確認する
+        1. 再びgit branchコマンドで確認すると、update-venueブランチに切り替わったことがわかります。
+        
+        ```bash
+        $ git branch
+        
+        % git branch
+          master
+        * update-venue # *がupdate-venueブランチに付き、現在使用中のブランチがmasterから切り替わったことがわかる
+        ```
+        
+    - **Point** git statusコマンドで確認する
+        
+        git statusコマンドでも使用中のブランチを確認できます。コマンドを実行するとOn branchに続いて表示されるのが現在使っているブランチです。
+        
+        ```bash
+        % git status
+        On branch update-venue # git statusコマンドで使用中のブランチが表示される
+        nothing to commit, working tree clean
+        ```
+        
+- ファイルを編集してコミットする
+    1. index.htmlを編集する
+        1. codeコマンドでVisual Studio Codeを起動し、index.htmlを開きましょう(P.139参照)。「株式会社〇〇イベントセミナー会場」という箇所を書き換えて保存します。
+
+    2. 状態を確認する
+        1. 対象ファイルの状態を確認したのち、コミットしてみましょう。先ずはgit stautsコマンドで状態を確認します。
+        
+        ```bash
+        $ git status
+        
+        % git status
+        On branch update-venue
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   index.html # index.htmlが「modhified(変更済み)」になっている
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+    3. 変更をコミットする
+        1. git addコマンドでindex.htmlをステージングエリアに登録し、git commitコマンドでコミットします。素早くコミットできる -mオプションを使いましょう。いずれもChapter 3で学習しました。
+        
+        ```bash
+        # コマンドを1行ずつ入力してreturnキーを押すこと
+        $ git add index.html
+        $ git commit -m "会場を株式会社インプレスに更新した"
+        
+        % git add index.html
+        % git commit -m "会場を株式会社インプレスに更新した"
+        [update-venue 93c44d0] 会場を株式会社インプレスに更新した
+         1 file changed, 1 insertion(+), 1 deletion(-)
+        ```
+        
+    4. ブランチに対する操作を確認する
+        1. これで、update-venueブランチでの作業は完了です。このあと、このブランチをmasterブランチにマージします。その前に、今使っているブランチをmasterブランチと比較してみましょう。Chapter 3で紹介したgit diffコマンドを用いると、ブランチ同士の比較を行うことも可能です。パラメーターに比較対象のブランチを指定して実行してみましょう。会場変更が反映されていることを確認できるはずです。
+        
+        ```bash
+        $ git diff master
+        
+        % git diff master # 使用中のブランチとmasterブランチとの差分が表示される
+        diff --git a/index.html b/index.html
+        index b3405fb..3d80220 100644
+        --- a/index.html
+        +++ b/index.html
+        @@ -55,7 +55,7 @@
+                             <article>
+                                 <h3>イベント日時・場所</h3>
+                                 <p>3月23日 19:00開始</p>
+        -                        <p>株式会社〇〇 イベントセミナー会場</p> # マイナス記号と赤色の文字は変更前の行
+        +                        <p>株式会社インプレス イベントセミナー会場</p> # プラス記号と緑色の文字は変更後の行
+                             </article>
+                             <article>
+                                 <h3>スピーカー</h3>
+        ```
+
+        ※マイナス記号と赤色の文字は変更前の行、プラス記号と緑色の文字は変更後の行を表します。
+        
+- Lesson 30 [ブランチを用いた実践2] プルリクエストを作成しましょう
