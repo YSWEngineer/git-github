@@ -31,11 +31,7 @@
     Lesson 36で説明したように、今回はspeakers-infoブランチを作成し、スピーカー情報を途中まで追加していきます。使うコマンドもほぼこれまでに説明したものばかりですが、オプションを利用してコマンド数を減らすやり方を説明します。
     
     ※オプションを使って少ないコマンドで目的を達成します。
-    
-    - speakers-infoブランチで作業する
-        
-        ![speakers-infoブランチで作業する.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bbf7595b-6eeb-4451-a1f7-0df5bda06028/speakers-info%E3%83%95%E3%82%99%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A6%E3%82%99%E4%BD%9C%E6%A5%AD%E3%81%99%E3%82%8B.jpeg)
-        
+
     - チェックアウトと同時にブランチを作成するコマンド
         
         ```bash
@@ -61,7 +57,7 @@
         $ git checkout -b speakers-info
         
         # git checkoutコマンドでspeakers-infoという名のブランチを作成し、同時にチェックアウトを行う
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git checkout -b speakers-info
+        % git checkout -b speakers-info
         Switched to a new branch 'speakers-info' # 新しいブランチ「speakers-info」ブランチに切り替わった
         ```
         
@@ -82,16 +78,14 @@
         
     5. ブラウザーでHTMLを確認する
         1. Gitに登録する前に、HTMLが正しく更新されたかをブラウザーで確認しておきましょう。
-        
-        ![ブラウザーでHTMLを確認する.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0ef32aad-9e61-4052-a7a1-5f85ad1f0e23/%E3%83%95%E3%82%99%E3%83%A9%E3%82%A6%E3%82%B5%E3%82%99%E3%83%BC%E3%81%A6%E3%82%99HTML%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B.png)
-        
+
     6. 編集したファイルをコミットする
         1. ファイルの状態をチェックしたら、コミットしましょう。ここではgit addコマンドに-Aオプションを付け、新規追加・編集・削除したすべてのファイルを一度にステージングエリアへ追加します。そのあとは、これまでどおりコミットをすれば大丈夫です。
         
         ```bash
         $ git status # 現在の状態を確認する
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git status
+        % git status
         On branch speakers-info
         Changes not staged for commit:
           (use "git add <file>..." to update what will be committed)
@@ -105,13 +99,9 @@
         
         no changes added to commit (use "git add" and/or "git commit -a")
         ```
-        
-        ![編集したファイルをコミットする.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f40e61a9-3b34-413a-9b2f-adb5d65c7ff1/%E7%B7%A8%E9%9B%86%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B.png)
-        
+
         ```bash
         $ git add -A # -Aは--allとも書ける
-        
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git add -A
         ```
         
         ※-Aは--allとも書けます。文字数は多いですが、意味がわかりやすいですね。このように、オプションにはわかりやすい書き方と短い省略形が存在することがあります。これは、Git以外のコマンドにも言える特徴です。
@@ -119,7 +109,7 @@
         ```bash
         $ git status
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git status
+        % git status
         On branch speakers-info
         Changes to be committed:
           (use "git restore --staged <file>..." to unstage)
@@ -127,28 +117,24 @@
         	new file:   images/speaker2.png
         	modified:   index.html
         ```
-        
-        ![編集したファイルをコミットする②.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/846a46bb-a80d-4b78-b397-da3ffbab696d/%E7%B7%A8%E9%9B%86%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B.png)
-        
+
         ```bash
         $ git commit -m "スピーカー情報を追記した"
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git commit -m "スピーカー情報を追記した"
+        % git commit -m "スピーカー情報を追記した"
         [speakers-info f5e118d] スピーカー情報を追記した
          3 files changed, 8 insertions(+), 4 deletions(-)
          create mode 100644 images/speaker1.png
          create mode 100644 images/speaker2.png
         ```
-        
-        ![編集したファイルをコミットする③.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f1db299f-4510-4bea-9ee8-6464e0b81f67/%E7%B7%A8%E9%9B%86%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B.png)
-        
+
     7. リモートリポジトリにプッシュする
         1. スピーカー情報の更新が未完なので、speakers-infoブランチはまだ役目を終えていませんが、プッシュしておきましょう。プルリクエストの作成やリリースなど、リモートリポジトリでの操作を行いたいときに限らず、プッシュはこまめに行うことをオススメします。
         
         ```bash
         $ git push origin speakers-info
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git push origin speakers-info
+        % git push origin speakers-info
         Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
         Enumerating objects: 9, done.
         Counting objects: 100% (9/9), done.
@@ -164,9 +150,10 @@
         To github.com:YSWEngineer/ichiyasaGitSample.git
          * [new branch]      speakers-info -> speakers-info
         ```
-        
-        ![リモートリポジトリにプッシュする.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/23213cf9-3615-4f1b-90c0-d468d34842cd/%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E3%81%AB%E3%83%95%E3%82%9A%E3%83%83%E3%82%B7%E3%83%A5%E3%81%99%E3%82%8B.png)
-        
-        ※こまめにプッシュしておけば、何らかの不具合でローカルリポジトリのデータが消えて作業内容が失われることを防いだり、他のパソコンでプルして作業したりすることができます。
-        
-- Lesson 38 [複数ブランチの使用2] さらにブランチを作成し、セッションの情報を更新しましょう
+
+        ※こまめにプッシュしておけば、何らかの不具合でローカルリポジトリのデータが消えて作業内容が失われることを防いだり、他のパソコンでプルして作業したりすることができます。</details>
+
+
+<details><summary>Lesson 38 [複数ブランチの使用2] さらにブランチを作成し、セッションの情報を更新しましょう</summary>
+
+
