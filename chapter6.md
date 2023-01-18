@@ -389,14 +389,12 @@
         ```bash
         $ git commit -am "いろふさんのプロフィール画像を追加した"
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git commit -am "いろふさんのプロフィール画像を追加した"
+        % git commit -am "いろふさんのプロフィール画像を追加した"
         [speakers-info 3d6a0a4] いろふさんのプロフィール画像を追加した
          2 files changed, 1 deletion(-)
          rewrite images/speaker1.png (99%)
         ```
-        
-        ![ステージングエリアへの追加とコミットを一度に行う.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5e7a8b87-0cdd-4b01-affd-852c65e9e9c7/%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%82%99%E3%83%B3%E3%82%AF%E3%82%99%E3%82%A8%E3%83%AA%E3%82%A2%E3%81%B8%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%A8%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%82%92%E4%B8%80%E5%BA%A6%E3%81%AB%E8%A1%8C%E3%81%86.png)
-        
+    
         - **Point** 複数のオプションを指定してコマンドを実行する
             
             ここでは、ステージングエリアの追加を行う-a、そしてコミットメント(記録を保持すること)を指定する-mという2つのオプションを指定しています。そのため、次のように分けて入力することもできますが、**複数のオプションは「-am」のように1つのハイフン(-)で連続して指定することもできます。**
@@ -411,7 +409,7 @@
         ```bash
         $ git push origin speakers-info
         
-        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git push origin speakers-info
+        % git push origin speakers-info
         Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
         Enumerating objects: 15, done.
         Counting objects: 100% (15/15), done.
