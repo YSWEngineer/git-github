@@ -170,3 +170,129 @@
 <details><summary>Lesson 38 [複数ブランチの使用2] さらにブランチを作成し、セッションの情報を更新しましょう</summary>
 
 いろふさんのプロフィール画像が手元にないままので、一旦中断してセッション情報の更新に移ります。ここからは、同時に複数のブランチを操作することを学びます。ブランチの使い分けを意識してみましょう。
+- 新たなブランチをmasterブランチから作成する
+    
+    次にセッション情報(タイムテーブル)を更新しましょう。別の作業になるので、最初にセッション情報専用のsessions-infoブランチを作成します。現在使っているのは、先ほど作ったspeakers-infoブランチです。その状態でブランチを作成するコマンドを実行すると、基本的には現在使用中のブランチから新たなブランチが作られます。セッション情報の更新はスピーカー情報の更新とは全く別の作業なので、一度masterブランチに戻って、そこから別のブランチを作成しましょう。
+    
+    - masterブランチに切り替えずに新たなブランチを作成すると……
+
+        ※ベースブランチをmasterにしないと、speakers-infoブランチで追加したコミットも含まれたブランチが作成されてしまいます。そのため、作業ごとに使い分けができません。
+    
+- ブランチを作成し、編集後にマージまで進めよう
+    1. 新たなブランチをmasterブランチから作成する
+        1. 一旦masterブランチに移動してから、sessions-infoという名前のブランチを作成します。
+        
+        ```bash
+        $ git checkout master # masterブランチに移動する
+        
+        % git checkout master
+        Switched to branch 'master'
+        Your branch is up to date with 'origin/master'.
+        ```
+        
+        ```bash
+        $ git checkout -b sessions-info # sessions-infoブランチを作成して、チェックアウトする
+        
+        % git checkout -b sessions-info
+        Switched to a new branch 'sessions-info'
+        ```
+
+    2. ファイルを編集し、マージまで進める
+        1. index.htmlファイルを開き、テキストのように、セッション情報を追記します。
+    3. ブラウザーでHTMLを確認する
+
+    4. 変更をコミットする
+        1. これまでと同じく、index.htmlをステージングエリアに追加し、コミットします。
+        
+        ```bash
+        $ git status
+        
+        % git status
+        On branch sessions-info
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   index.html
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+        ```bash
+        $ git add index.html
+        
+        % git add index.html
+        ```
+        
+        ```bash
+        $ git commit -m "セッション情報を記載した"
+        
+        % git commit -m "セッション情報を記載した"
+        [sessions-info 858f97a] セッション情報を記載した
+         1 file changed, 2 insertions(+), 2 deletions(-)
+        ```
+
+    5. リモートリポジトリにプッシュして、マージする
+        1. あとは、Chapter5と同様にリモートリポジトリにプッシュし、プルリクエスト使ってマージを行ってください。ここではぷるリクエスト作成前に実行するコマンドのみ列挙し、詳細は割愛します。
+        
+        ```bash
+        $ git push origin sessions-info
+        
+        % git push origin sessions-info # リモートリポジトリにプッシュする
+        Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': # パスフレーズを要求されるので入力する
+        Enumerating objects: 5, done.
+        Counting objects: 100% (5/5), done.
+        Delta compression using up to 8 threads
+        Compressing objects: 100% (3/3), done.
+        Writing objects: 100% (3/3), 428 bytes | 428.00 KiB/s, done.
+        Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+        remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+        remote: 
+        remote: Create a pull request for 'sessions-info' on GitHub by visiting:
+        remote:      https://github.com/YSWEngineer/ichiyasaGitSample/pull/new/sessions-info
+        remote: 
+        To github.com:YSWEngineer/ichiyasaGitSample.git
+         * [new branch]      sessions-info -> sessions-info
+        ```
+
+- **プルリクエストを作成→マージするまでの流れ：1~5はプルリクエスト作成の手順、6•7はマージを実行する手順、8•9はマージコミットの確認**
+    1. プルリクエストを作成する
+        1. ブランチをプッシュ(ローカルリポジトリからリモートリポジトリに反映すること)する。
+        
+        ```bash
+        $ git push origin ブランチ名
+        ```
+        
+    2. masterブランチへのプルリクエスト作成を開始する
+        1. プッシュ後、GitHubのリポジトリを開くと新たに黄色いエリアが表示され、更新されたブランチがあることを確認できます。エリア右側の[Compare & pull request]をクリックする。
+            1. 黄色いエリアがない場合は、**プルリクエストは専用画面から作成することもできる**ので、
+                
+                ①[Pull requests]タブをクリック
+                
+                ②[New pull request]をクリック
+                
+                ③base:とcompare:のブランチを選択
+                
+                ④[Create pull request]をクリック
+                
+    3. ベースブランチとトピックブランチを選択する
+        1. 左側の[base repository:]を自分のアカウントのリポジトリを選択する。
+        2. 自分のアカウントのリポジトリのページに遷移するので、
+        3. 自分のアカウントのリポジトリのbase:masterとcompare:を選択する。
+    4. プルリクエストに必要な情報を入力する
+        1. コメント欄にどのような変更を加えたのか、わかりやすく書くこと。
+    5. プルリクエストの内容を確定する
+        1. [Create pull request]をクリックして、プルリクエストの作成が完了する。
+    6. (プルリクエストを作成したので、マージを行う)3つのマージ方法から選択する
+        1. [Merge pull request]の▼をクリック。
+        2. [Create a merge commit]を選択。
+    7. マージを実行する
+        1. 3つのマージ方法を選択したら、[Merge pull request]をクリックする。
+    8. マージコミットのコメントを入力する
+        1. マージコミットのコメントを確認 ※デフォルト値のままで良い。
+        2. [Confirm merge]をクリック。
+        3. プルリクエストがマージされると、「Pull request successfully merged and closed」と表示される。
+    9. ベースブランチのコミット履歴を確認する
+        1. [Code]タブに移動する。
+        2. [(コミット数) commits]をクリック。
+        3. コミット履歴が表示されるので、マージコミットを確認する。
+- Lesson 39 [複数ブランチの使用3] スピーカー情報更新用ブランチに戻り、作業を再開しましょう
