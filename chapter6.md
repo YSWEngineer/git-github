@@ -314,3 +314,135 @@
     今度はspeakers-infoブランチに切り替えてスピーカー情報の続きをしていきます。但し、masterブランチには、先程sessions-infoブランチで行ったセッション情報に関する作業の内容が含まれています。その作業よりも先に作ったspeakers-infoブランチには、セッション情報が含まれていません。そのため、speakers-infoブランチに最新のmasterブランチの内容を含めるように更新してから、作業を行ってみましょう。
     
     ※ベースブランチに変更が入った場合は、作業中のトピックブランチにも反映させておくことをオススメします。そうしないと両ブランチの差分がどんどん大きくなり、マージ作業のボリュームが大きく複雑になる可能性があります。
+- masterブランチから最新の状態を取得する
+    1. masterブランチから最新の状態を取得する
+        
+        ```bash
+        $ git checkout master # masterブランチに切り替える
+        
+        % git checkout master
+        Switched to branch 'master'
+        Your branch is up to date with 'origin/master'.
+        ```
+        
+        ```bash
+        $ git pull origin master
+        
+        % git pull origin master
+        Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519':  #パスフレーズを要求されるので入力する
+        remote: Enumerating objects: 1, done.
+        remote: Counting objects: 100% (1/1), done.
+        remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+        Unpacking objects: 100% (1/1), 683 bytes | 341.00 KiB/s, done.
+        From github.com:YSWEngineer/ichiyasaGitSample
+         * branch            master     -> FETCH_HEAD
+           b5de101..0e97f72  master     -> origin/master
+        Updating b5de101..0e97f72
+        Fast-forward
+         index.html | 4 ++--
+         1 file changed, 2 insertions(+), 2 deletions(-)
+        ```
+        
+        ※コマンドの実行結果をよく見ると、リモートリポジトリとローカルブランチの差分がファイルごとに表示されています。
+        
+    2. masterブランチから最新状態を取り込む
+        
+        続いて、speakers-infoにも反映します。マージ先のブランチ(speakers-info)に移動し、マージ元のブランチ(master)をパラメーターに指定してgit mergeコマンドを実行しましょう。すると、エディターが立ち上がりますが、マージしたことがわかるようなコミットメッセージがあらかじめ入力されています。慣習的にそのままとすることが多いので、編集しないでおきましょう。何もせずにエディターを閉じれば、マージが完了します。
+        
+        ```bash
+        $ git checkout speakers-info # speakers-infoブランチに切り替える
+        
+        % git checkout speakers-info
+        Switched to branch 'speakers-info'
+        ```
+        
+        ```bash
+        $ git merge master
+        
+        % git merge master
+        Auto-merging index.html
+        ```
+
+        ※index.htmlファイルを開き、speakers-infoブランチを使用している状態でもセッション情報が更新済みであることを確認してみましょう。
+        
+- HTMLファイルを更新する
+    1. スピーカーのプロフィール画像を追加し、コミットする
+        1. 「images」フォルダーの画像ファイルspeaker1.pngを、本番用のファイルで上書きしましょう。そして、HTMLファイルのTODOコメントの行を削除しましょう。
+
+    2. 変更をコミットする
+        1. 今回は、ステージングエリアへの追加とコミットを一度に行ってみます。-aオプションを付けてgit commitコマンドを実行してください。-aオプションは更新されたファイルをステージングエリアに追加して、そのままコミットします。但し、追加対象となるのはGit管理下に置かれているファイルの変更です。ステージングエリアに加えていない新規ファイルや、一度Gitの管理から除外したファイルは対象外となり、コミットされません。その場合はgit addコマンドを使う必要があります。
+        
+        ```bash
+        $ git status
+        
+        % git status
+        On branch speakers-info
+        Changes not staged for commit:
+          (use "git add <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+        	modified:   images/speaker1.png
+        	modified:   index.html
+        
+        no changes added to commit (use "git add" and/or "git commit -a")
+        ```
+        
+        ```bash
+        $ git commit -am "いろふさんのプロフィール画像を追加した"
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git commit -am "いろふさんのプロフィール画像を追加した"
+        [speakers-info 3d6a0a4] いろふさんのプロフィール画像を追加した
+         2 files changed, 1 deletion(-)
+         rewrite images/speaker1.png (99%)
+        ```
+        
+        ![ステージングエリアへの追加とコミットを一度に行う.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5e7a8b87-0cdd-4b01-affd-852c65e9e9c7/%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%82%99%E3%83%B3%E3%82%AF%E3%82%99%E3%82%A8%E3%83%AA%E3%82%A2%E3%81%B8%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%A8%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%82%92%E4%B8%80%E5%BA%A6%E3%81%AB%E8%A1%8C%E3%81%86.png)
+        
+        - **Point** 複数のオプションを指定してコマンドを実行する
+            
+            ここでは、ステージングエリアの追加を行う-a、そしてコミットメント(記録を保持すること)を指定する-mという2つのオプションを指定しています。そのため、次のように分けて入力することもできますが、**複数のオプションは「-am」のように1つのハイフン(-)で連続して指定することもできます。**
+            
+            ```bash
+            $ git commit -a -m "いろふさんのプロフィール画像を追加した"
+            ```
+            
+    3. プルリクエストを作成してマージする
+        1. コミットが完了したら、これまでどおりプッシュ、プルリクエスト作成、レビュー、マージを行います。
+        
+        ```bash
+        $ git push origin speakers-info
+        
+        yoshiwo@Yoshiwos-MacBook-Pro ichiyasaGitSample % git push origin speakers-info
+        Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
+        Enumerating objects: 15, done.
+        Counting objects: 100% (15/15), done.
+        Delta compression using up to 8 threads
+        Compressing objects: 100% (8/8), done.
+        Writing objects: 100% (8/8), 25.84 KiB | 6.46 MiB/s, done.
+        Total 8 (delta 5), reused 0 (delta 0), pack-reused 0
+        remote: Resolving deltas: 100% (5/5), completed with 3 local objects.
+        To github.com:YSWEngineer/ichiyasaGitSample.git
+           f5e118d..3d6a0a4  speakers-info -> speakers-info
+        ```
+        
+        ![プルリクエストを作成してマージする.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/64a49e09-8bcf-4471-bb76-e692c6b26983/%E3%83%95%E3%82%9A%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%A6%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%99%E3%82%8B.png)
+        
+        ![プルリクエストを作成してマージする②.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7eae70ac-5c45-4a37-a6dd-bed96b432695/%E3%83%95%E3%82%9A%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%A6%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%99%E3%82%8B.jpeg)
+        
+        ※ブランチを複数使い分けるコツが掴めたでしょうか。自分が今何のためにどのブランチを使っているのか、どのブランチとマージすればいいのか、次はどんなブランチを使えばいいのかといった頭の切り替えが難しいと感じるかもしれませんね。たくさん使って慣れていきましょう。
+        
+- 不要なブランチをコマンドで削除しよう
+    
+    これまで様々なトピックブランチを扱ってきましたが、この調子で開発を続けているとリポジトリに余分なブランチが溜まっていってしまいます。例として、sessions-infoブランチを対象に、削除を実行するコマンドを紹介します。
+    
+    ブランチ名を指定した上で、ローカルリポジトリに対してはgit branchコマンドを、リモートリポジトリに対してはgit pushコマンドを用います。
+    
+    | 操作対象のリポジトリ | 操作内容 | コマンド |
+    | --- | --- | --- |
+    | ローカルリポジトリ | マージ済みのブランチを削除する | git branh --delete sessions-info または git branch -d sessions -info |
+    | ローカルリポジトリ | マージ状況に関わらずブランチを削除する | git branch -D sessions -info |
+    | リモートリポジトリ | ブランチを削除する | git push --delete origin sessions -info または git push origin :sessions -info |
+- **ワンポイント** 不要なブランチをGitHub上で削除しよう
+    
+    GitHub上のリモートリポジトリのブランチをブラウザーから削除する方法も紹介しましょう。プルリクエストでブランチをマージしたときに、[Delete branch]というボタンが表示されることに気付きましたか(P.175参照)。これをクリックすると、プルリクエストで使用したブランチを削除できます。
+    
+    それ以外のブランチを削除したい場合は、[Code]タブの[〇〇 branches]をクリックしてブランチの一覧を表示して削除します(Openなプルリクエストでマージを検討中のブランチは削除できません)。
