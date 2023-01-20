@@ -149,9 +149,7 @@
         ```bash
         $ git status
         ```
-        
-        ![git statusコマンドで確認する.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4a3a8c4-b902-4528-bf75-6d80a4f6253b/git_status%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%88%E3%82%99%E3%81%A6%E3%82%99%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B.jpeg)
-        
+
     - **ワンポイント** コンフリクト発生時のyouとthem
         
         コンフリクト発生時にファイルの状態を表すメッセージとして、both modified以外に「deleted by them」や「added by you」などと表示されることがあります。いきなり人を表す代名詞が出てきて戸惑うかもしれませんが、youはマージ元である現在使用中のブランチ、themはマージ先のブランチを指します。例えば、使用中のブランチで編集したファイルがマージ先のブランチで削除されていた場合、表示されるのはdeleted by themです。
