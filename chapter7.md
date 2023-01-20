@@ -44,3 +44,36 @@
     
     1. セッションタイトルを書き替える
         1. index.htmlを開いてセッションタイトルを書き替えましょう。うらがみさんのセッションタイトルを、「現場で使える！実践Git」から「めざせ脱初心者！現場で使える実践Git」に変更します。
+2. 変更をコミットしてプッシュする
+    1. コミット、プッシュを行ったのち、プルリクエストを作成したところで手を止めてください。先程説明したシナリオを実現するため、マージは行いません。少し後で、コンフリクトが起きた状態にして、プルリクエストがどうなるのかを確認します(P.219参照)。
+    
+    ```bash
+    $ git commit -am "うらがみさんのセッションタイトルを更新した" # コミットを作成し、同時にステージングエリアの追加と記録を保持した
+    
+    % git commit -am "うらがみさんのセッションタイトルを更新した"
+    [change-sesssion-title 4de2619] うらがみさんのセッションタイトルを更新した
+     1 file changed, 1 insertion(+), 1 deletion(-)
+    ```
+    
+    ```bash
+    $ git push origin change-session-title # プッシュコマンドを行う
+    
+    % git push origin change-session-title
+    Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
+    Enumerating objects: 5, done.
+    Counting objects: 100% (5/5), done.
+    Delta compression using up to 8 threads
+    Compressing objects: 100% (3/3), done.
+    Writing objects: 100% (3/3), 396 bytes | 396.00 KiB/s, done.
+    Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+    remote: 
+    remote: Create a pull request for 'change-session-title' on GitHub by visiting:
+    remote:      https://github.com/YSWEngineer/ichiyasaGitSample/pull/new/change-session-title
+    remote: 
+    To github.com:YSWEngineer/ichiyasaGitSample.git
+     * [new branch]      change-session-title -> change-session-title
+    ```
+    
+    **※ブランチ名を間違えて登録したため解決方法を検索→[gitのローカルのブランチ名を変更したいとき]今開いているブランチをリネームする場合は、単純に新しいブランチ名を指定するだけです**。`git branch -m <新しいブランチ名>`
+    ※[Create pull request]をクリックして、プルリクエストを作成した状態で放置してください。
