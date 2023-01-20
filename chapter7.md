@@ -197,9 +197,7 @@
         ```bash
         $ git push origin change-session-title
         ```
-        
-        ![リモートリポジトリにプッシュする.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3b45cdf2-6f53-4548-a988-d72f55fa61af/%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E3%81%AB%E3%83%95%E3%82%9A%E3%83%83%E3%82%B7%E3%83%A5%E3%81%99%E3%82%8B.jpeg)
-        
+
     4. プルリクエストを確認する
         1. プッシュした後でGitHubを表示して再度プルリクエストを確認すると、コンフリクト発生中とは異なり、自動でのマージができるようになっています。あとは、レビューをしてもらい、masterブランチへマージすれば作業完了です。
         
