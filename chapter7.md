@@ -190,9 +190,7 @@
         ```bash
         $ git commit
         ```
-        
-        ![マージを完了する.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bf3a8ac7-13e6-4061-9223-2bd564572170/%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%82%92%E5%AE%8C%E4%BA%86%E3%81%99%E3%82%8B.jpeg)
-        
+
     3. リモートリポジトリにプッシュする
         1. コンフリクトの解消が終わったら、これまでどおりプッシュを行いましょう。
         
