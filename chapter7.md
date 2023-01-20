@@ -91,3 +91,48 @@
     1. 編集が完了したら、下のほうにスクロールしていくと「Commit changes」というフォームが現れます。ここでコミットメッセージを入力し、[Commit changes]をクリックして内容を確定させます。これで、編集した内容を反映するmasterブランチへのコミットが作成されます。
             
     ※テキストと実際の画面と内容が異なっている。
+- masterブランチの変更を取得する
+    
+    ヤマグチさん役はここまでです。さて、masterブランチに入った変更をchange-session-titleブランチに取り込みましょう。手順は、Chapter 6で学習したものと同じです。
+    
+    1. ローカルリポジトリのmasterブランチを最新化する
+        1. 先ずはmasterブランチに切り替え、git pullコマンドで最新化を行いましょう。先程ヤマグチさんとしてGitHub上で編集した内容を取得することができます。
+        
+        ```bash
+        $ git checkout master # masterブランチに切り替える
+        
+        % git checkout master
+        Switched to branch 'master'
+        Your branch is up to date with 'origin/master'.
+        ```
+        
+        ```bash
+        $ git pull origin master # 最新化して編集した内容を取得する
+        
+        % git pull origin master
+        Enter passphrase for key '/Users/yoshiwo/.ssh/id_ed25519': 
+        From github.com:YSWEngineer/ichiyasaGitSample
+         * branch            master     -> FETCH_HEAD
+        Already up to date.
+        ```
+        
+    2. change-session-titleブランチにmasterブランチをマージする
+        1. 続いて、再びchange-session-titleブランチへ戻り、masterブランチをマージします。ところが、これまでとは違い、「CONFLICT(content): Merge conflict in index.html」というメッセージが表示されます。これがコンクリフト発生の合図です。
+        
+        ```bash
+        $ git checkout change-session-title # ブランチを「change-session-title」ブランチに切り替える
+        
+         git checkout change-session-title
+        Switched to branch 'change-session-title'
+        ```
+        
+        ```bash
+        $ git merge master # masterブランチをマージする
+        
+        ```
+
+</details>
+
+
+<details><summary>Lesson 42 [コンフリクトの解消] コンフリクトが発生した際の対応を学びましょう</summary>
+
