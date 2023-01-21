@@ -18,3 +18,12 @@ GitHubは世界中の開発者が利用しており、多くのリポジトリ�
     アクティビティーはGitHubのトップページ([ https://github.com ]( https://github.com ))かNotificationsのページ([ https://github.com/notifications ]( https://github.com/notifications ))で確認できます。[Star]のボタンを押すとユーザーページの[Star]タブにリポジトリをリスト化できます。
     
     リポジトリについている「Star」の数はリポジトリの注目度の高さを示しており、例えばGitHubのトレンドリポジトリのランキング([ https://github.com/trending ]( https://github.com/trending ))は「Star」の数をもとに集計されています。
+### 用語
+- **OSS**：オープンソースソフトウェアのこと。OSS（オープンソースソフトウェア（Open Source Software））とは、ソースコードが公開されており、無償で誰でも自由に改変、再配布が可能なソフトウェアのことです。OSSは特定の企業でなく、有志によって組織されたコミュニティなどで開発されていることが多く、開発にはプログラマが参加しています。OSSは基本的に自由に使えるためソースコードを見て仕組みを学習することができ、一部を修正して改良したソフトウェアを開発することが出来ます。
+- (GitHub上の)**contributors**：貢献者。masterブランチにコミットが取り込まれた人数を示している。
+- (GitHub上の)**Releases**：これまでのリリースバージョンを確認できる。
+- (GitHub上の)**Watch**：そのリポジトリでプルリクエストがマージされて時など、リポジトリの更新情報がアクティビティー(活動)として通知されるようになる。
+- (GitHub上の)**Star**：Starの数はリポジトリの注目度の高さを示しており、GitHubのトレンドリポジトリのランキングはStarの数をもとに集計されている。</details>
+
+
+<details><summary>
