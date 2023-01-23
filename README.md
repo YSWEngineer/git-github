@@ -13,4 +13,4 @@
 
 ## [Chapter 6 複数ブランチを同時に使ってファイルを更新しよう](https://github.com/YSWEngineer/git-github/blob/main/chapter6.md)
 
-## [Chapter 2 Gitを使う準備をしよう](https://github.com/YSWEngineer/git-github/blob/main/chapter2.md)
+## [Chapter 7 コンフリクトに対処しよう](https://github.com/YSWEngineer/git-github/blob/main/chapter7.md)
