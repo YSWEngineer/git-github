@@ -7,7 +7,7 @@
 
 ## [Chapter 3 ファイルをバージョン管理してみよう](https://github.com/YSWEngineer/git-github/blob/main/chapter3.md)
 
-## [Chapter 2 Gitを使う準備をしよう](https://github.com/YSWEngineer/git-github/blob/main/chapter2.md)
+## [Chapter 4 GitHubのリポジトリをパソコンに取得しよう](https://github.com/YSWEngineer/git-github/blob/main/chapter4.md)
 
 ## [Chapter 2 Gitを使う準備をしよう](https://github.com/YSWEngineer/git-github/blob/main/chapter2.md)
 
